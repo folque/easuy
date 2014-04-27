@@ -5,10 +5,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.util.Date;
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.ejb.SessionContext;
-import javax.inject.Inject;
 import pt.folque.easuy.dao.UserDao;
 import pt.folque.easuy.ejb.UserEJB;
 import pt.folque.easuy.model.User;
@@ -25,7 +25,7 @@ public class UserEJBImpl implements UserEJB{
     @Resource
     private SessionContext sessionContext;
     
-    @Inject
+    @EJB
     private UserDao userDao;
     
     public void createNewUser(User user){

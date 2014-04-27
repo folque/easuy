@@ -29,7 +29,7 @@ public class UserMBean {
     public UserMBean() {
     }
     
-    public String getUser(){
+    public String getLoggedInUser(){
         return userEJB.getPrincipal().getName();
     }
     

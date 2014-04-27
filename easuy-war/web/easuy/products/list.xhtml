@@ -13,7 +13,10 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                This is my super content!!!
+                <ui:repeat value="#{product.list}" var="prod">
+                    #{prod.name}
+                    <br/>
+                </ui:repeat>
                 
             </ui:define>
         </ui:composition>
