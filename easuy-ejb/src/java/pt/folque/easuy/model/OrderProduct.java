@@ -8,6 +8,7 @@ package pt.folque.easuy.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -15,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -28,6 +30,9 @@ import javax.persistence.Table;
     @NamedQuery(name = "OrderProduct.findByUserId", query = "SELECT o FROM OrderProduct o WHERE o.orderProductPK.userId = :userId"),
     @NamedQuery(name = "OrderProduct.findByDate", query = "SELECT o FROM OrderProduct o WHERE o.orderProductPK.date = :date")})
 public class OrderProduct implements Serializable {
+    @Size(max = 45)
+    @Column(name = "status", length = 45)
+    private String status;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected OrderProductPK orderProductPK;
@@ -96,6 +101,14 @@ public class OrderProduct implements Serializable {
     @Override
     public String toString() {
         return "pt.folque.easuy.model.OrderProduct[ orderProductPK=" + orderProductPK + " ]";
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
 }

@@ -16,7 +16,7 @@ import pt.folque.easuy.model.User;
  * @author Diogo
  */
 @Local
-public interface UserEJB {
+public interface UserEBean {
     
     public void createNewUser(User user);
     

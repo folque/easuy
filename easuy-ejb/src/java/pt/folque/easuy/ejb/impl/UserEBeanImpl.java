@@ -5,12 +5,12 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.util.Date;
 import javax.annotation.Resource;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.ejb.SessionContext;
+import javax.inject.Inject;
 import pt.folque.easuy.dao.UserDao;
-import pt.folque.easuy.ejb.UserEJB;
+import pt.folque.easuy.ejb.UserEBean;
 import pt.folque.easuy.model.User;
 import pt.folque.easuy.model.UserDetails;
 
@@ -20,18 +20,20 @@ import pt.folque.easuy.model.UserDetails;
  */
 @Stateless
 @LocalBean
-public class UserEJBImpl implements UserEJB{
+public class UserEBeanImpl implements UserEBean {
 
     @Resource
     private SessionContext sessionContext;
     
-    @EJB
+    @Inject
     private UserDao userDao;
     
+    @Override
     public void createNewUser(User user){
         userDao.persist(user);
     }
     
+    @Override
     public void createNewUser(String email, String password, String firstname, String lastname, Date dob){
         User user = new User();
         UserDetails userDetails = new UserDetails();
@@ -49,6 +51,7 @@ public class UserEJBImpl implements UserEJB{
         
     }
     
+    @Override
     public String encryptPassword(String password){
         String result = null;
         try {
@@ -68,16 +71,18 @@ public class UserEJBImpl implements UserEJB{
         } catch(NoSuchAlgorithmException e){
         }
         
-        return null;
+        return result;
     }
     
     
+    @Override
     public Principal getPrincipal(){
         Principal principal = sessionContext.getCallerPrincipal();
         return principal;
     }
     
 
+    @Override
     public String getText(){
         return "text";
     }

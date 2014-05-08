@@ -15,7 +15,7 @@ import pt.folque.easuy.model.Product;
  * @author Diogo
  */
 @Local
-public interface ProductEJB {
+public interface ProductEBean {
     
     public List<Product> findAll();
 

@@ -7,22 +7,22 @@
 package pt.folque.easuy.web;
 
 import java.util.List;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import pt.folque.easuy.ejb.ProductEJB;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import pt.folque.easuy.ejb.ProductEBean;
 import pt.folque.easuy.model.Product;
 
 /**
  *
  * @author Diogo
  */
-@ManagedBean(name = "product")
+@Named("product")
 @RequestScoped
 public class ProductMBean {
 
-    @EJB
-    private ProductEJB productEJB;
+    @Inject
+    private ProductEBean productEBean;
     
     /**
      * Creates a new instance of ProductMBean
@@ -31,7 +31,7 @@ public class ProductMBean {
     }
     
     public List<Product> getList(){
-       return productEJB.findAll();
+       return productEBean.findAll();
     }
     
 }

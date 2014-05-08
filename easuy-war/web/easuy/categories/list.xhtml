@@ -13,11 +13,13 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <ui:param value="#{category.category}" name="cat"/>
-                <ui:repeat value="#{category.getProducts(cat.id)}" var="prod">
-                    #{prod.name}
+                <ui:repeat value="#{category.list}" var="cat">
+                    <h:form>
+                        <h:commandLink action="#{category.enterCategory(cat.id)}">#{cat.name}</h:commandLink>
+                    </h:form>
                     <br/>
                 </ui:repeat>
+                
             </ui:define>
         </ui:composition>
     </h:body>

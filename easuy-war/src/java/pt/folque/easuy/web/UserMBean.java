@@ -6,21 +6,23 @@
 
 package pt.folque.easuy.web;
 
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import pt.folque.easuy.ejb.UserEJB;
+import java.io.Serializable;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import pt.folque.easuy.ejb.UserEBean;
 import pt.folque.easuy.model.User;
 
 /**
  *
  * @author Diogo
  */
-@ManagedBean(name = "user")
+@Named("user")
 @SessionScoped
-public class UserMBean {
-    @EJB
-    private UserEJB userEJB;
+public class UserMBean implements Serializable{
+    
+    @Inject
+    private UserEBean userEBean;
     
     private User user;
     /**
@@ -30,11 +32,11 @@ public class UserMBean {
     }
     
     public String getLoggedInUser(){
-        return userEJB.getPrincipal().getName();
+        return userEBean.getPrincipal().getName();
     }
     
     public String getText(){
-        return userEJB.getText();
+        return userEBean.getText();
     }
     
     

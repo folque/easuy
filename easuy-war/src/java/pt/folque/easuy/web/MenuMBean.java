@@ -6,18 +6,19 @@
 
 package pt.folque.easuy.web;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
 /**
  *
  * @author Diogo
  */
-@ManagedBean(name="menu")
+@Named("menu")
 @SessionScoped
-public class MenuMBean {
+public class MenuMBean implements Serializable{
 
     private List<String> activeList;
     public MenuMBean() {

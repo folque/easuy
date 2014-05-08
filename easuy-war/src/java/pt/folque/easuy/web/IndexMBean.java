@@ -6,14 +6,14 @@
 
 package pt.folque.easuy.web;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 
 /**
  *
  * @author Diogo
  */
-@ManagedBean
+@Named("index")
 @RequestScoped
 public class IndexMBean {
 

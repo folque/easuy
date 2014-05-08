@@ -1,17 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 package pt.folque.easuy.ejb.impl;
 
 import java.util.List;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.inject.Inject;
 import pt.folque.easuy.dao.ProductDao;
-import pt.folque.easuy.ejb.ProductEJB;
+import pt.folque.easuy.ejb.ProductEBean;
 import pt.folque.easuy.model.Product;
 
 /**
@@ -20,9 +20,9 @@ import pt.folque.easuy.model.Product;
  */
 @Stateless
 @LocalBean
-public class ProductEJBImpl implements ProductEJB{
-
-    @EJB
+public class ProductEBeanImpl implements ProductEBean {
+    
+    @Inject
     private ProductDao productDao;
     
     @Override
@@ -35,7 +35,7 @@ public class ProductEJBImpl implements ProductEJB{
         }
         return products;
     }
-
+    
     @Override
     public Product findById(long id) {
         Product product = null;
@@ -46,21 +46,21 @@ public class ProductEJBImpl implements ProductEJB{
         }
         return product;
     }
-
+    
     @Override
     public void createNewProduct(Product product) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void update(Product product) {
-         try {
+        try {
             productDao.merge(product);
         } catch(Exception e){
             System.err.println("Error while updating product with cause: " + e.getCause());
         }
     }
-
+    
     @Override
     public void remove(Product product) {
         try {
@@ -69,5 +69,5 @@ public class ProductEJBImpl implements ProductEJB{
             System.err.println("Error while removing product with cause: " + e.getCause());
         }
     }
-
+    
 }
