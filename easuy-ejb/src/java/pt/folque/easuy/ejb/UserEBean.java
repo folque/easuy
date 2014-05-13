@@ -7,7 +7,6 @@
 package pt.folque.easuy.ejb;
 
 import java.security.Principal;
-import java.util.Date;
 import javax.ejb.Local;
 import pt.folque.easuy.model.User;
 
@@ -20,11 +19,9 @@ public interface UserEBean {
     
     public void createNewUser(User user);
     
-    public void createNewUser(String email, String password, String firstname, String lastname, Date dob);
+    public void createNewUser(String email, String password, String role);
     
     public String encryptPassword(String password);
     
     public Principal getPrincipal();
-    
-    public String getText();
 }

@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Login Form</title>
+        <title>Login</title>
     </h:head>
     <h:body>
         <p:panel header="Login From">
@@ -23,5 +23,8 @@ and open the template in the editor.
                 <input type="reset" value="Reset" />
             </form>
         </p:panel>
+        <h:form>
+            <a href="#{request.contextPath}/register.xhtml">Register</a>
+        </h:form>
     </h:body>
 </html>

@@ -34,28 +34,21 @@ public class UserEBeanImpl implements UserEBean {
     }
     
     @Override
-    public void createNewUser(String email, String password, String firstname, String lastname, Date dob){
+    public void createNewUser(String email, String password, String role){
         User user = new User();
-        UserDetails userDetails = new UserDetails();
         
         user.setEmail(email);
         user.setPassword(encryptPassword(password));
-        
-        userDetails.setFirstname(firstname);
-        userDetails.setLastname(lastname);
-        userDetails.setDob(dob);
-        
-        user.setUserDetails(userDetails);
+        user.setRole(role);
         
         createNewUser(user);
-        
     }
     
     @Override
     public String encryptPassword(String password){
         String result = null;
         try {
-        MessageDigest md = MessageDigest.getInstance("MD5");
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(password.getBytes());
         byte[] bytes = md.digest();
         
@@ -79,11 +72,5 @@ public class UserEBeanImpl implements UserEBean {
     public Principal getPrincipal(){
         Principal principal = sessionContext.getCallerPrincipal();
         return principal;
-    }
-    
-
-    @Override
-    public String getText(){
-        return "text";
     }
 }

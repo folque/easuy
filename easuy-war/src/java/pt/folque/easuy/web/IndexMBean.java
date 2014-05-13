@@ -24,7 +24,7 @@ public class IndexMBean {
     }
     
     public String list(){
-        return "LIST";
+        return "list";
     }
     
 }

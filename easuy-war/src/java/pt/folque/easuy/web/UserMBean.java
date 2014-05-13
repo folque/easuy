@@ -34,13 +34,4 @@ public class UserMBean implements Serializable{
     public String getLoggedInUser(){
         return userEBean.getPrincipal().getName();
     }
-    
-    public String getText(){
-        return userEBean.getText();
-    }
-    
-    
-    
-    
-    
 }
