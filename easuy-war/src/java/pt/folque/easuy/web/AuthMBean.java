@@ -10,28 +10,26 @@ import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import pt.folque.easuy.ejb.UserEBean;
-import pt.folque.easuy.model.User;
+import pt.folque.easuy.ejb.AuthEBean;
 
 /**
  *
  * @author Diogo
  */
-@Named("user")
+@Named("auth")
 @SessionScoped
-public class UserMBean implements Serializable{
+public class AuthMBean implements Serializable{
     
     @Inject
-    private UserEBean userEBean;
+    private AuthEBean authEBean;
     
-    private User user;
     /**
      * Creates a new instance of UserMBean
      */
-    public UserMBean() {
+    public AuthMBean() {
     }
     
     public String getLoggedInUser(){
-        return userEBean.getPrincipal().getName();
+        return authEBean.getPrincipal().getName();
     }
 }

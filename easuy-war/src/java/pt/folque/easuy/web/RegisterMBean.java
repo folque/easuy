@@ -8,11 +8,14 @@ package pt.folque.easuy.web;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import pt.folque.easuy.ejb.UserEBean;
+import pt.folque.easuy.ejb.UserLogEBean;
+import pt.folque.easuy.enums.UserLogType;
+import pt.folque.easuy.model.User;
+import static pt.folque.easuy.model.UserLog_.user;
 
 /**
  *
@@ -29,6 +32,8 @@ public class RegisterMBean {
     
     @Inject
     private UserEBean userEBean;
+    @Inject
+    private UserLogEBean userLogEBean;
 
     /**
      * Creates a new instance of RegisterMBean
@@ -82,16 +87,9 @@ public class RegisterMBean {
     
     public String addUser(){
         userEBean.createNewUser(email, password, "user");
+        User createdUser = userEBean.findByEmail(email);
+        userLogEBean.setEvent(UserLogType.REGISTER, createdUser);
         addMessage(new FacesMessage(FacesMessage.SEVERITY_INFO, "User successfully registered", null));
         return "registered";
     }
-    
-    public boolean validateEmail(){
-        return email.equals(confirmEmail);
-    }
-    
-    public boolean validatePassword(){
-        return password.equals(confirmPassword);
-    }
-    
 }

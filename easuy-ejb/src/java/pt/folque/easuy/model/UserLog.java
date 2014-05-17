@@ -11,12 +11,15 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import pt.folque.easuy.enums.UserLogType;
 
 /**
  *
@@ -33,9 +36,9 @@ public class UserLog implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected UserLogPK userLogPK;
-    @Size(max = 9)
     @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private UserLogType type;
     @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private User user;
@@ -59,11 +62,11 @@ public class UserLog implements Serializable {
         this.userLogPK = userLogPK;
     }
 
-    public String getType() {
+    public UserLogType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(UserLogType type) {
         this.type = type;
     }
 
