@@ -7,6 +7,7 @@
 package pt.folque.easuy.ejb;
 
 import java.security.Principal;
+import java.util.List;
 import javax.ejb.Local;
 import pt.folque.easuy.model.User;
 
@@ -24,4 +25,10 @@ public interface UserEBean {
     public String encryptPassword(String password);
     
     public Principal getPrincipal();
+    
+    public User findById(long id);
+    
+    public User findByEmail(String email);
+    
+    public List<User> findAll();
 }

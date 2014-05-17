@@ -3,7 +3,7 @@ package pt.folque.easuy.ejb.impl;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
-import java.util.Date;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import pt.folque.easuy.dao.UserDao;
 import pt.folque.easuy.ejb.UserEBean;
 import pt.folque.easuy.model.User;
-import pt.folque.easuy.model.UserDetails;
 
 /**
  *
@@ -72,5 +71,38 @@ public class UserEBeanImpl implements UserEBean {
     public Principal getPrincipal(){
         Principal principal = sessionContext.getCallerPrincipal();
         return principal;
+    }
+    
+    @Override
+    public User findById(long id){
+        User user = null;
+        try {
+            user = userDao.findById(id);
+        }catch(Exception e){
+            System.err.println("Error while retrieving user by id with cause: " + e.getCause());
+        }
+        return user;
+    }
+    
+    @Override
+    public User findByEmail(String email){
+        User user = null;
+        try {
+            user = userDao.findByEmail(email);
+        }catch(Exception e){
+            System.err.println("Error while retrieving user by email with cause: " + e.getCause());
+        }
+        return user;
+    }
+    
+    @Override
+    public List<User> findAll(){
+        List<User> users = null;
+        try {
+            users = userDao.findAll();
+        }catch(Exception e){
+            System.err.println("Error while retrieving all users with reason: " + e.getCause());
+        }
+        return users;
     }
 }

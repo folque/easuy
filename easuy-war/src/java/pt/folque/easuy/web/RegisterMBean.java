@@ -86,4 +86,12 @@ public class RegisterMBean {
         return "registered";
     }
     
+    public boolean validateEmail(){
+        return email.equals(confirmEmail);
+    }
+    
+    public boolean validatePassword(){
+        return password.equals(confirmPassword);
+    }
+    
 }

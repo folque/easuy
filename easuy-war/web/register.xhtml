@@ -19,15 +19,21 @@ and open the template in the editor.
                 <h:form>
                     <h:outputText value="Email: "/>
                     <h:inputText id="email" value="#{register.email}"
-                                 required="true" requiredMessage="Please introduce your email!"/>
+                                 required="true" requiredMessage="Please introduce your email!">
+                        <f:validator validatorId="EmailValidator"/>
+                        <f:attribute name="confirm" value="#{register.confirmEmail}"/>
+                    </h:inputText>
+                    <h:message for="email" style="color:red"/>
                     <br/>
                     <h:outputText value="Repeat email: "/>
-                    <h:inputText id="emailConfirm" value="#{register.confirmEmail}"
+                    <h:inputText id="confirmEmail" value="#{register.confirmEmail}"
                                  required="true" requiredMessage="Please repeat your email!"/>
                     <br/>
                     <h:outputText value="Password: "/>
                     <h:inputSecret id="password" value="#{register.password}"
-                                   required="true" requiredMessage="Please introduce your password!"/>
+                                   required="true" requiredMessage="Please introduce your password!"
+                                   validator="PasswordValidator"/>
+                    <h:message for="password" style="color:red"/>
                     <br/>
                     <h:outputText value="Repeat password: "/>
                     <h:inputSecret id="confirmPassword" value="#{register.confirmPassword}"
