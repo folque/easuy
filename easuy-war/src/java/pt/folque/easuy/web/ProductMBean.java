@@ -10,6 +10,8 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import pt.folque.easuy.ejb.AuthEBean;
+import pt.folque.easuy.ejb.OrderProductEBean;
 import pt.folque.easuy.ejb.ProductEBean;
 import pt.folque.easuy.model.Product;
 
@@ -23,6 +25,8 @@ public class ProductMBean {
 
     @Inject
     private ProductEBean productEBean;
+    @Inject
+    private OrderProductEBean orderProductEBean;
     
     /**
      * Creates a new instance of ProductMBean
@@ -32,6 +36,11 @@ public class ProductMBean {
     
     public List<Product> getList(){
        return productEBean.findAll();
+    }
+    
+    public void placeOrder(long id){
+        System.out.println("ID IS: " + id);
+        orderProductEBean.createNewOrder(id);
     }
     
 }

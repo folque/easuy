@@ -25,13 +25,17 @@
         <param-name>com.sun.faces.allowTextChildren</param-name>
         <param-value>true</param-value>
     </context-param>
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>rocket</param-value>
+    </context-param>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>easuy/index.xhtml</welcome-file>
+        <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
     <security-constraint>
         <display-name>Restrict Pages</display-name>

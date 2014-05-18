@@ -9,10 +9,13 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
+                <c:set value="Category" target="#{menu}" property="title"/>
                 <ui:repeat value="#{category.list}" var="cat">
                     <h:form>
                         <h:commandLink action="#{category.enterCategory(cat.id)}">#{cat.name}</h:commandLink>

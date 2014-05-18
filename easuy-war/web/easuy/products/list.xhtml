@@ -9,15 +9,20 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <ui:param value="#{category.category}" name="cat"/>
-                <ui:repeat value="#{category.getProducts(cat.id)}" var="prod">
-                    #{prod.name}
-                    <br/>
-                </ui:repeat>
+                <c:set value="Products" target="#{menu}" property="title"/>
+                <h:form>
+                    <ui:param value="#{category.category}" name="cat"/>
+                    <ui:repeat value="#{category.getProducts(cat.id)}" var="prod">
+                        <h:outputText value="#{prod.name}"/>
+                        <h:commandButton action="#{product.placeOrder(prod.id)}" type="submit" value="Buy"/>
+                        <br/>
+                    </ui:repeat>
+                </h:form>
             </ui:define>
         </ui:composition>
     </h:body>

@@ -8,23 +8,32 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Login</title>
-    </h:head>
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
-        <p:panel header="Login From">
-            <form method="POST" action="j_security_check">
-                Username: <input type="text" name="j_username" />
-                Password: <input type="password" name="j_password" />
-                 
- 
-                <input type="submit" value="Login" />
-                <input type="reset" value="Reset" />
-            </form>
-        </p:panel>
-        <h:form>
-            <a href="#{request.contextPath}/register.xhtml">Register</a>
-        </h:form>
+        <ui:composition>
+            <p:panel header="Login">
+                <form method="POST" action="j_security_check">
+                    <table>
+                        <tr>
+                            <td class="table-login-cell">Username:</td>
+                            <td class="table-login-cell"><input type="text" name="j_username" /></td>
+                        </tr>
+                        <tr>
+                            <td class="table-login-cell">Password:</td>
+                            <td class="table-login-cell"><input type="password" name="j_password" /></td>
+                        </tr>
+                        <tr>
+                            <td class="table-login-cell"><input type="submit" value="Login" /></td>
+                            <td class="table-login-cell"><input type="reset" value="Reset" /></td>
+                        </tr>
+                    </table>
+                </form>
+                <h:form>
+                    <a href="#{request.contextPath}/register.xhtml">Register</a>
+                </h:form>
+            </p:panel>
+        </ui:composition>
     </h:body>
 </html>

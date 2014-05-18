@@ -3,15 +3,13 @@ package pt.folque.easuy.ejb.impl;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import javax.annotation.Resource;
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import javax.ejb.SessionContext;
 import javax.inject.Inject;
 import pt.folque.easuy.dao.UserDao;
 import pt.folque.easuy.ejb.UserEBean;
 import pt.folque.easuy.ejb.UserLogEBean;
-import pt.folque.easuy.enums.UserLogType;
 import pt.folque.easuy.model.User;
 
 /**

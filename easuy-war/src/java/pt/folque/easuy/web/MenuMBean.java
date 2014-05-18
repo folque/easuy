@@ -19,7 +19,17 @@ import javax.inject.Named;
 @Named("menu")
 @SessionScoped
 public class MenuMBean implements Serializable{
+    
+    private String title;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+            
     private List<String> activeList;
     public MenuMBean() {
         activeList = new ArrayList<String>();
