@@ -12,6 +12,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -58,7 +59,7 @@ public class Product implements Serializable {
     @Column(name = "stock")
     private Integer stock;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-    private List<OrderProduct> orderProductList;
+    private List<UserProduct> userProductList;
 
     public Product() {
     }
@@ -104,12 +105,12 @@ public class Product implements Serializable {
         this.stock = stock;
     }
 
-    public List<OrderProduct> getOrderProductList() {
-        return orderProductList;
+    public List<UserProduct> getUserProductList() {
+        return userProductList;
     }
 
-    public void setOrderProductList(List<OrderProduct> orderProductList) {
-        this.orderProductList = orderProductList;
+    public void setUserProductList(List<UserProduct> userProductList) {
+        this.userProductList = userProductList;
     }
 
     @Override
@@ -144,5 +145,4 @@ public class Product implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
-    
 }

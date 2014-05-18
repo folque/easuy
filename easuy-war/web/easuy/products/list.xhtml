@@ -17,11 +17,16 @@ and open the template in the editor.
                 <c:set value="Products" target="#{menu}" property="title"/>
                 <h:form>
                     <ui:param value="#{category.category}" name="cat"/>
-                    <ui:repeat value="#{category.getProducts(cat.id)}" var="prod">
-                        <h:outputText value="#{prod.name}"/>
-                        <h:commandButton action="#{product.placeOrder(prod.id)}" type="submit" value="Buy"/>
-                        <br/>
-                    </ui:repeat>
+                    <h:dataTable value="#{category.getProducts(cat)}" var="prod">
+                        <h:column>
+                            <f:facet name="header">Name</f:facet>
+                            <h:outputText value="#{prod.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"/>
+                            <h:commandLink action="#{product.placeOrder(prod)}" value="Buy"/>
+                        </h:column>
+                    </h:dataTable>
                 </h:form>
             </ui:define>
         </ui:composition>

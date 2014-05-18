@@ -33,12 +33,12 @@ import pt.folque.easuy.enums.UserLogType;
     @NamedQuery(name = "UserLog.findByDate", query = "SELECT u FROM UserLog u WHERE u.userLogPK.date = :date"),
     @NamedQuery(name = "UserLog.findByType", query = "SELECT u FROM UserLog u WHERE u.type = :type")})
 public class UserLog implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected UserLogPK userLogPK;
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private UserLogType type;
+    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    protected UserLogPK userLogPK;
     @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private User user;
@@ -60,14 +60,6 @@ public class UserLog implements Serializable {
 
     public void setUserLogPK(UserLogPK userLogPK) {
         this.userLogPK = userLogPK;
-    }
-
-    public UserLogType getType() {
-        return type;
-    }
-
-    public void setType(UserLogType type) {
-        this.type = type;
     }
 
     public User getUser() {
@@ -101,6 +93,14 @@ public class UserLog implements Serializable {
     @Override
     public String toString() {
         return "pt.folque.easuy.model.UserLog[ userLogPK=" + userLogPK + " ]";
+    }
+
+    public UserLogType getType() {
+        return type;
+    }
+
+    public void setType(UserLogType type) {
+        this.type = type;
     }
     
 }

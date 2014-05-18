@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
  * @author Diogo
  */
 @Embeddable
-public class OrderProductPK implements Serializable {
+public class UserProductPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "product_id")
@@ -35,10 +35,10 @@ public class OrderProductPK implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    public OrderProductPK() {
+    public UserProductPK() {
     }
-
-    public OrderProductPK(long productId, long userId, Date date) {
+    
+    public UserProductPK(long productId, long userId, Date date) {
         this.productId = productId;
         this.userId = userId;
         this.date = date;
@@ -80,10 +80,10 @@ public class OrderProductPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof OrderProductPK)) {
+        if (!(object instanceof UserProductPK)) {
             return false;
         }
-        OrderProductPK other = (OrderProductPK) object;
+        UserProductPK other = (UserProductPK) object;
         if (this.productId != other.productId) {
             return false;
         }
@@ -98,7 +98,7 @@ public class OrderProductPK implements Serializable {
 
     @Override
     public String toString() {
-        return "pt.folque.easuy.model.OrderProductPK[ productId=" + productId + ", userId=" + userId + ", date=" + date + " ]";
+        return "pt.folque.easuy.model.UserProductPK[ productId=" + productId + ", userId=" + userId + ", date=" + date + " ]";
     }
     
 }

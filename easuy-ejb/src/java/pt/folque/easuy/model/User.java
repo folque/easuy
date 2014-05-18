@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -58,7 +59,7 @@ public class User implements Serializable {
     @Column(name = "role")
     private String role;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<OrderProduct> orderProductList;
+    private List<UserProduct> userProductList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<UserLog> userLogList;
 
@@ -108,12 +109,12 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    public List<OrderProduct> getOrderProductList() {
-        return orderProductList;
+    public List<UserProduct> getUserProductList() {
+        return userProductList;
     }
 
-    public void setOrderProductList(List<OrderProduct> orderProductList) {
-        this.orderProductList = orderProductList;
+    public void setUserProductList(List<UserProduct> orderProductList) {
+        this.userProductList = orderProductList;
     }
 
     public List<UserLog> getUserLogList() {
@@ -148,5 +149,4 @@ public class User implements Serializable {
     public String toString() {
         return "pt.folque.easuy.model.User[ id=" + id + " ]";
     }
-    
 }
