@@ -15,7 +15,6 @@ import pt.folque.easuy.ejb.UserEBean;
 import pt.folque.easuy.ejb.UserLogEBean;
 import pt.folque.easuy.enums.UserLogType;
 import pt.folque.easuy.model.User;
-import static pt.folque.easuy.model.UserLog_.user;
 
 /**
  *

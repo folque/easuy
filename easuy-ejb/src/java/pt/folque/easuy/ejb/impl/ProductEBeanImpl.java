@@ -48,6 +48,17 @@ public class ProductEBeanImpl implements ProductEBean {
     }
     
     @Override
+    public List<Product> findByCategoryIdAndMinStock(long id, int stock){
+        List<Product> products = null;
+        try {
+            products = productDao.findByCategoryIdAndMinStock(id, stock);
+        } catch(Exception e){
+            System.err.println("Error while finding products by category id and stock with cause: " + e.getCause());
+        }
+        return products;
+    }
+    
+    @Override
     public void createNewProduct(Product product) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

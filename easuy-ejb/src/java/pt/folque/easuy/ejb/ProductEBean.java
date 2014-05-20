@@ -21,6 +21,8 @@ public interface ProductEBean {
 
     public Product findById(long id);
     
+    public List<Product> findByCategoryIdAndMinStock(long id, int stock);
+    
     public void createNewProduct(Product product);
     
     public void update(Product product);

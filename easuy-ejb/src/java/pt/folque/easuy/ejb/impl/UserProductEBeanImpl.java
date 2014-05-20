@@ -46,6 +46,7 @@ public class UserProductEBeanImpl implements UserProductEBean {
         userProduct.setProduct(product);
         userProduct.setUser(user);
         userProduct.setUserProductPK(userProductPK);
+        product.setStock(product.getStock() - 1);
         
         createNewOrder(userProduct);
     }

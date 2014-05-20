@@ -3,11 +3,11 @@ package pt.folque.easuy.ejb.impl;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
 import pt.folque.easuy.dao.UserDao;
+import pt.folque.easuy.ejb.MailEBean;
 import pt.folque.easuy.ejb.UserEBean;
 import pt.folque.easuy.ejb.UserLogEBean;
 import pt.folque.easuy.model.User;
@@ -24,6 +24,8 @@ public class UserEBeanImpl implements UserEBean {
     private UserDao userDao;
     @Inject
     private UserLogEBean userLogEBean;
+    @Inject
+    private MailEBean mailEBean;
     
     @Override
     public void createNewUser(User user){
@@ -37,7 +39,7 @@ public class UserEBeanImpl implements UserEBean {
         user.setEmail(email);
         user.setPassword(encryptPassword(password));
         user.setRole(role);
-        
+        mailEBean.sendMsg(user.getEmail(), "test", "This is a test");
         createNewUser(user);
     }
     
@@ -45,19 +47,19 @@ public class UserEBeanImpl implements UserEBean {
     public String encryptPassword(String password){
         String result = null;
         try {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        md.update(password.getBytes());
-        byte[] bytes = md.digest();
-        
-        StringBuilder sb = new StringBuilder();
-        
-        for(int i = 0; i < bytes.length; i++){
-            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-        }
-        
-        result = sb.toString();
-        
-        return result;
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(password.getBytes());
+            byte[] bytes = md.digest();
+            
+            StringBuilder sb = new StringBuilder();
+            
+            for(int i = 0; i < bytes.length; i++){
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            
+            result = sb.toString();
+            
+            return result;
         } catch(NoSuchAlgorithmException e){
         }
         

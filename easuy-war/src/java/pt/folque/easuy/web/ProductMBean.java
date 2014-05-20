@@ -32,7 +32,6 @@ public class ProductMBean {
     }
     
     public void placeOrder(Product product){
-        System.out.println(product.getName());
         userProductEBean.createNewOrder(product);
     }
     

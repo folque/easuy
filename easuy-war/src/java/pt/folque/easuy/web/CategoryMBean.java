@@ -12,6 +12,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import pt.folque.easuy.ejb.CategoryEBean;
+import pt.folque.easuy.ejb.ProductEBean;
 import pt.folque.easuy.model.Category;
 import pt.folque.easuy.model.Product;
 
@@ -22,9 +23,13 @@ import pt.folque.easuy.model.Product;
 @Named("category")
 @SessionScoped
 public class CategoryMBean implements Serializable{
+    
+    private final static int MINIMUM_STOCK = 1;
 
     @Inject
     private CategoryEBean categoryEBean;
+    @Inject
+    private ProductEBean productEBean;
     
     private Category category = null;
 
@@ -50,7 +55,7 @@ public class CategoryMBean implements Serializable{
     }
     
     public List<Product> getProducts(Category category){
-       List<Product> prod = category.getProductList();
+       List<Product> prod = productEBean.findByCategoryIdAndMinStock(category.getId(), MINIMUM_STOCK);
         return prod;
     }
     

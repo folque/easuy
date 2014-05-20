@@ -46,6 +46,14 @@ public class ProductDao {
                .getResultList();
        return products;
    }
+   
+   public List<Product> findByCategoryIdAndMinStock(long id, int stock){
+       List<Product> products = em.createNamedQuery("Product.findByCategoryIdAndMinStock")
+               .setParameter("categoryId", id)
+               .setParameter("stock", stock)
+               .getResultList();
+       return products;
+   }
 
     public void persist(Product product) {
         em.persist(product);
