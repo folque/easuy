@@ -60,7 +60,11 @@ public class ProductEBeanImpl implements ProductEBean {
     
     @Override
     public void createNewProduct(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            productDao.persist(product);
+        } catch(Exception e){
+            System.err.println("Error while creating product with cause: " + e.getCause());
+        }
     }
     
     @Override

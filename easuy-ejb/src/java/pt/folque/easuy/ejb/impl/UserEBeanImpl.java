@@ -11,6 +11,7 @@ import pt.folque.easuy.ejb.MailEBean;
 import pt.folque.easuy.ejb.UserEBean;
 import pt.folque.easuy.ejb.UserLogEBean;
 import pt.folque.easuy.model.User;
+import pt.folque.easuy.templates.MailTemplate;
 
 /**
  *
@@ -39,7 +40,7 @@ public class UserEBeanImpl implements UserEBean {
         user.setEmail(email);
         user.setPassword(encryptPassword(password));
         user.setRole(role);
-        mailEBean.sendMsg(user.getEmail(), "test", "This is a test");
+        mailEBean.sendMsg(user.getEmail(), "Easuy Registration", MailTemplate.registration(user));
         createNewUser(user);
     }
     

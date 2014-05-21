@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import pt.folque.easuy.dao.CategoryDao;
 import pt.folque.easuy.ejb.CategoryEBean;
 import pt.folque.easuy.model.Category;
-import pt.folque.easuy.model.Product;
 
 /**
  *

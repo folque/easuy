@@ -39,7 +39,7 @@ public class MailEBeanImpl implements MailEBean{
         Session session = Session.getInstance(props,
                 new Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication(){
-                        return new PasswordAuthentication("easuy@gmail.com", "easuyadmin");
+                        return new PasswordAuthentication("easuy.biz@gmail.com", "easuyadmin");
                     }
                 });
         

@@ -12,7 +12,6 @@ import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pt.folque.easuy.model.User;
 import pt.folque.easuy.model.UserLog;
 
 /**

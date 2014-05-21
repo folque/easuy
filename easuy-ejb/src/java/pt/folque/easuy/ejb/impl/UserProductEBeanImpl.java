@@ -13,12 +13,17 @@ import javax.ejb.LocalBean;
 import javax.inject.Inject;
 import pt.folque.easuy.dao.UserProductDao;
 import pt.folque.easuy.ejb.AuthEBean;
+import pt.folque.easuy.ejb.MailEBean;
+import pt.folque.easuy.ejb.ProductEBean;
 import pt.folque.easuy.ejb.UserProductEBean;
 import pt.folque.easuy.ejb.UserEBean;
+import pt.folque.easuy.ejb.UserLogEBean;
+import pt.folque.easuy.enums.UserLogType;
 import pt.folque.easuy.model.Product;
 import pt.folque.easuy.model.User;
 import pt.folque.easuy.model.UserProduct;
 import pt.folque.easuy.model.UserProductPK;
+import pt.folque.easuy.templates.MailTemplate;
 
 /**
  *
@@ -34,6 +39,12 @@ public class UserProductEBeanImpl implements UserProductEBean {
     private AuthEBean authEBean;
     @Inject
     private UserEBean userEBean;
+    @Inject
+    private MailEBean mailEBean;
+    @Inject
+    private ProductEBean productEBean;
+    @Inject
+    private UserLogEBean userLogEBean;
 
     @Override
     public void createNewOrder(Product product) {
@@ -47,6 +58,10 @@ public class UserProductEBeanImpl implements UserProductEBean {
         userProduct.setUser(user);
         userProduct.setUserProductPK(userProductPK);
         product.setStock(product.getStock() - 1);
+        productEBean.update(product);
+        userLogEBean.setEvent(UserLogType.order, user);
+        
+        mailEBean.sendMsg(user.getEmail(), "Your order info", MailTemplate.order(product));
         
         createNewOrder(userProduct);
     }

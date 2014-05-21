@@ -11,9 +11,9 @@ package pt.folque.easuy.enums;
  * @author Diogo
  */
 public enum UserLogType {
-    REGISTER,
-    LOGIN,
-    LOGOUT,
-    ORDER;
+    register,
+    login,
+    logout,
+    order;
     
 }

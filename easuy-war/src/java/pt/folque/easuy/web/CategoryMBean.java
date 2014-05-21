@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 package pt.folque.easuy.web;
 
@@ -25,18 +25,18 @@ import pt.folque.easuy.model.Product;
 public class CategoryMBean implements Serializable{
     
     private final static int MINIMUM_STOCK = 1;
-
+    
     @Inject
     private CategoryEBean categoryEBean;
     @Inject
     private ProductEBean productEBean;
     
     private Category category = null;
-
+    
     public CategoryEBean getCategoryEBean() {
         return categoryEBean;
     }
-
+    
     public void setCategoryEBean(CategoryEBean categoryEBean) {
         this.categoryEBean = categoryEBean;
     }
@@ -55,7 +55,7 @@ public class CategoryMBean implements Serializable{
     }
     
     public List<Product> getProducts(Category category){
-       List<Product> prod = productEBean.findByCategoryIdAndMinStock(category.getId(), MINIMUM_STOCK);
+        List<Product> prod = productEBean.findByCategoryIdAndMinStock(category.getId(), MINIMUM_STOCK);
         return prod;
     }
     
