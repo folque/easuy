@@ -8,6 +8,7 @@ package pt.folque.easuy.ejb.impl;
 
 import java.util.Date;
 import java.util.List;
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
@@ -40,16 +41,18 @@ public class UserProductEBeanImpl implements UserProductEBean {
     @Inject
     private UserEBean userEBean;
     @Inject
-    private MailEBean mailEBean;
-    @Inject
     private ProductEBean productEBean;
+    @Inject
+    private MailEBean mailEBean;
     @Inject
     private UserLogEBean userLogEBean;
 
     @Override
-    public void createNewOrder(Product product) {
+    @Asynchronous
+    public void createNewOrder(long id) {
         UserProduct userProduct = new UserProduct();
         UserProductPK userProductPK = new UserProductPK();
+        Product product = productEBean.findById(id);
         User user = userEBean.findByEmail(authEBean.getPrincipal().getName());
         userProductPK.setProductId(product.getId());
         userProductPK.setUserId(user.getId());
@@ -60,9 +63,7 @@ public class UserProductEBeanImpl implements UserProductEBean {
         product.setStock(product.getStock() - 1);
         productEBean.update(product);
         userLogEBean.setEvent(UserLogType.order, user);
-        
         mailEBean.sendMsg(user.getEmail(), "Your order info", MailTemplate.order(product));
-        
         createNewOrder(userProduct);
     }
 

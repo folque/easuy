@@ -3,6 +3,8 @@ package pt.folque.easuy.ejb.impl;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.concurrent.Future;
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
@@ -29,6 +31,7 @@ public class UserEBeanImpl implements UserEBean {
     private MailEBean mailEBean;
     
     @Override
+    @Asynchronous
     public void createNewUser(User user){
         userDao.persist(user);
     }

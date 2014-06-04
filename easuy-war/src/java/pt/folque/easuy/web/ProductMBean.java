@@ -6,6 +6,7 @@
 
 package pt.folque.easuy.web;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -37,10 +38,12 @@ public class ProductMBean {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
-    public String placeOrder(Product product){
-        userProductEBean.createNewOrder(product);
+    public String placeOrder(long id){
+        userProductEBean.createNewOrder(id);
+        Product product = productEBean.findById(id);
         addMessage(new FacesMessage(FacesMessage.SEVERITY_INFO, "Your order of " + product.getName() + "has been processed. Thank you for using our service.", null));
         return "success";
     }
+    
     
 }

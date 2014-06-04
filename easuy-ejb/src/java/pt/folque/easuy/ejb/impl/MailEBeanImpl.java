@@ -7,6 +7,7 @@
 package pt.folque.easuy.ejb.impl;
 
 import java.util.Properties;
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.mail.Authenticator;
@@ -28,6 +29,7 @@ import pt.folque.easuy.ejb.MailEBean;
 public class MailEBeanImpl implements MailEBean{
     
     @Override
+    @Asynchronous
     public void sendMsg(String address, String title, String content){
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -45,8 +47,8 @@ public class MailEBeanImpl implements MailEBean{
         
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("folque@gmail.com"));
-            message.setRecipient(Message.RecipientType.TO, InternetAddress.parse(address)[0]);
+            message.setFrom(new InternetAddress("easuy.biz@gmail.com"));
+            message.setRecipient(Message.RecipientType.TO, InternetAddress.parse("folque@gmail.com")[0]);
             message.setSubject(title);
             message.setText(content);
             Transport.send(message);

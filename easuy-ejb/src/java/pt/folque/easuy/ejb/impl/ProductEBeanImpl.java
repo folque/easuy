@@ -7,6 +7,7 @@
 package pt.folque.easuy.ejb.impl;
 
 import java.util.List;
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
@@ -59,6 +60,7 @@ public class ProductEBeanImpl implements ProductEBean {
     }
     
     @Override
+    @Asynchronous
     public void createNewProduct(Product product) {
         try {
             productDao.persist(product);
@@ -68,6 +70,7 @@ public class ProductEBeanImpl implements ProductEBean {
     }
     
     @Override
+    @Asynchronous
     public void update(Product product) {
         try {
             productDao.merge(product);
@@ -77,6 +80,7 @@ public class ProductEBeanImpl implements ProductEBean {
     }
     
     @Override
+    @Asynchronous
     public void remove(Product product) {
         try {
             productDao.remove(product);

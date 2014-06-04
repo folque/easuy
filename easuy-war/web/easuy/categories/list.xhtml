@@ -17,8 +17,8 @@ and open the template in the editor.
             <ui:define name="content">
                 <c:set value="Category" target="#{menu}" property="title"/>
                 <ui:repeat value="#{category.list}" var="cat">
-                    <h:form>
-                        <h:commandLink action="#{category.enterCategory(cat.id)}">#{cat.name}</h:commandLink>
+                    <h:form id="categoryForm">
+                        <h:commandLink id="btnProd" action="#{category.enterCategory(cat.id)}">#{cat.name}</h:commandLink>
                     </h:form>
                     <br/>
                 </ui:repeat>

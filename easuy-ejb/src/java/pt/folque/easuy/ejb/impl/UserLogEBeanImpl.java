@@ -8,6 +8,7 @@ package pt.folque.easuy.ejb.impl;
 
 import java.util.Date;
 import java.util.List;
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
@@ -39,10 +40,11 @@ public class UserLogEBeanImpl implements UserLogEBean {
         userLog.setUser(user);
         userLog.setUserLogPK(userLogPK);
         
-        setEvent(userLog);
+        this.setEvent(userLog);
     }
     
     @Override
+    @Asynchronous
     public void setEvent(UserLog userLog) {
         userLogDao.persist(userLog);
     }

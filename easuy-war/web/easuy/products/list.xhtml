@@ -15,23 +15,14 @@ and open the template in the editor.
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
                 <c:set value="Products" target="#{menu}" property="title"/>
-                <h:form>
-                    <ui:param value="#{category.category}" name="cat"/>
-                    <p:dataTable value="#{category.getProducts(cat)}" var="prod">
-                        <p:column>
-                            <f:facet name="header">Name</f:facet>
-                            <h:outputText value="#{prod.name}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">In stock</f:facet>
-                            <h:outputText value="#{prod.stock}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header"/>
-                            <h:commandLink action="#{product.placeOrder(prod)}" value="Buy"/>
-                        </p:column>
-                    </p:dataTable>
-                </h:form>
+                
+                <ui:param value="#{category.category}" id="categoria" name="cat"/>
+
+                <ui:repeat value="#{category.products}" var="prod">
+                    <h:form>
+                        <h:commandLink id="btnOrder" action="#{product.placeOrder(prod.id)}" value="#{prod.name}"/>
+                    </h:form>
+                </ui:repeat>
             </ui:define>
         </ui:composition>
     </h:body>

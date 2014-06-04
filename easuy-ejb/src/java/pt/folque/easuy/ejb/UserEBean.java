@@ -7,6 +7,7 @@
 package pt.folque.easuy.ejb;
 
 import java.util.List;
+import java.util.concurrent.Future;
 import javax.ejb.Local;
 import pt.folque.easuy.model.User;
 
@@ -25,7 +26,7 @@ public interface UserEBean {
     
     public User findById(long id);
     
-    public User findByEmail(String email);
+    public User  findByEmail(String email);
     
     public List<User> findAll();
 }

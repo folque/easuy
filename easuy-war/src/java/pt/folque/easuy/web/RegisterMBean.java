@@ -87,7 +87,7 @@ public class RegisterMBean {
     public String addUser(){
         userEBean.createNewUser(email, password, "user");
         User createdUser = userEBean.findByEmail(email);
-        userLogEBean.setEvent(UserLogType.REGISTER, createdUser);
+        userLogEBean.setEvent(UserLogType.register, createdUser);
         addMessage(new FacesMessage(FacesMessage.SEVERITY_INFO, "User successfully registered", null));
         return "success";
     }

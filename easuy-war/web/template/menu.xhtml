@@ -10,7 +10,7 @@
             <ul class="nav nav-sidebar">
                 <c:choose>
                     <c:when test="#{not empty request.remoteUser}">
-                        <li><a href="#{request.contextPath}/easuy/index.xhtml">Home</a></li>
+                        <li><a href="#{request.contextPath}/index.xhtml">Home</a></li>
                         <li class="active"><a href="#{request.contextPath}/easuy/categories/list.xhtml">Shop</a></li>
                         <li><a href="#{request.contextPath}/easuy/logs/list.xhtml">Log</a></li>
                     </c:when>

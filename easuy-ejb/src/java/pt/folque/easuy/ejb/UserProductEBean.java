@@ -16,7 +16,7 @@ import pt.folque.easuy.model.UserProduct;
  */
 public interface UserProductEBean {
     
-    public void createNewOrder(Product product);
+    public void createNewOrder(long id);
     public void createNewOrder(UserProduct userProduct);
     public List<UserProduct> findByUserId(long userId);
     public List<UserProduct> findByProductId(long productId);

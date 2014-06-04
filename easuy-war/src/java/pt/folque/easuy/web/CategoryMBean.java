@@ -51,11 +51,13 @@ public class CategoryMBean implements Serializable{
     }
     
     public Category getCategory(){
+        if(this.category == null) category = categoryEBean.findById(1);
         return category;
     }
     
-    public List<Product> getProducts(Category category){
-        List<Product> prod = productEBean.findByCategoryIdAndMinStock(category.getId(), MINIMUM_STOCK);
+    
+    public List<Product> getProducts(){
+        List<Product> prod = productEBean.findByCategoryIdAndMinStock(1, MINIMUM_STOCK);
         return prod;
     }
     
