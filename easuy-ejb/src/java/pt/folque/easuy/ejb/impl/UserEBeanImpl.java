@@ -31,12 +31,6 @@ public class UserEBeanImpl implements UserEBean {
     private MailEBean mailEBean;
     
     @Override
-    @Asynchronous
-    public void createNewUser(User user){
-        userDao.persist(user);
-    }
-    
-    @Override
     public void createNewUser(String email, String password, String role){
         User user = new User();
         
@@ -44,7 +38,7 @@ public class UserEBeanImpl implements UserEBean {
         user.setPassword(encryptPassword(password));
         user.setRole(role);
         mailEBean.sendMsg(user.getEmail(), "Easuy Registration", MailTemplate.registration(user));
-        createNewUser(user);
+        userDao.persist(user);
     }
     
     @Override

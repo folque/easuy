@@ -33,21 +33,12 @@ public class UserLogEBeanImpl implements UserLogEBean {
     @Override
     public void setEvent(UserLogType type, User user){
         UserLog userLog = new UserLog();
-        UserLogPK userLogPK = new UserLogPK();
-        userLogPK.setDate(new Date());
-        userLogPK.setUserId(user.getId());
-        userLog.setType(type);
-        userLog.setUser(user);
+        UserLogPK userLogPK = new UserLogPK(user.getId(), new Date(), type);
         userLog.setUserLogPK(userLogPK);
+        userLog.setUser(user);
         
-        this.setEvent(userLog);
-    }
-    
-    @Override
-    @Asynchronous
-    public void setEvent(UserLog userLog) {
         userLogDao.persist(userLog);
-    }
+    }    
     
     @Override
     public List<UserLog> findByUserId(long id){
@@ -61,7 +52,7 @@ public class UserLogEBeanImpl implements UserLogEBean {
     }
     
     @Override
-    public List<UserLog> findAll(long id){
+    public List<UserLog> findAll(){
         List<UserLog> userLogs = null;
         try {
             userLogs = userLogDao.findAll();

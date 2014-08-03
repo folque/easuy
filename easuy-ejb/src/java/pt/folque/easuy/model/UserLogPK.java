@@ -11,9 +11,13 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import pt.folque.easuy.enums.UserLogType;
 
 /**
  *
@@ -30,13 +34,19 @@ public class UserLogPK implements Serializable {
     @Column(name = "date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private UserLogType type;
 
     public UserLogPK() {
     }
 
-    public UserLogPK(long userId, Date date) {
+    public UserLogPK(long userId, Date date, UserLogType type) {
         this.userId = userId;
         this.date = date;
+        this.type = type;
     }
 
     public long getUserId() {
@@ -55,11 +65,20 @@ public class UserLogPK implements Serializable {
         this.date = date;
     }
 
+    public UserLogType getType() {
+        return type;
+    }
+
+    public void setType(UserLogType type) {
+        this.type = type;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) userId;
         hash += (date != null ? date.hashCode() : 0);
+        hash += (type != null ? type.hashCode() : 0);
         return hash;
     }
 
@@ -76,12 +95,15 @@ public class UserLogPK implements Serializable {
         if ((this.date == null && other.date != null) || (this.date != null && !this.date.equals(other.date))) {
             return false;
         }
+        if ((this.type == null && other.type != null) || (this.type != null && !this.type.equals(other.type))) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "pt.folque.easuy.model.UserLogPK[ userId=" + userId + ", date=" + date + " ]";
+        return "pt.folque.easuy.model.UserLogPK[ userId=" + userId + ", date=" + date + ", type=" + type + " ]";
     }
     
 }

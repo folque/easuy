@@ -60,7 +60,6 @@ public class ProductEBeanImpl implements ProductEBean {
     }
     
     @Override
-    @Asynchronous
     public void createNewProduct(Product product) {
         try {
             productDao.persist(product);
@@ -70,7 +69,6 @@ public class ProductEBeanImpl implements ProductEBean {
     }
     
     @Override
-    @Asynchronous
     public void update(Product product) {
         try {
             productDao.merge(product);
@@ -80,7 +78,6 @@ public class ProductEBeanImpl implements ProductEBean {
     }
     
     @Override
-    @Asynchronous
     public void remove(Product product) {
         try {
             productDao.remove(product);

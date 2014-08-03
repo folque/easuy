@@ -792,11 +792,34 @@ exists or setup the property manually. For example like this:
         <!-- You can override this target in the ../build.xml file. -->
     </target>
     <target depends="compile,-library-inclusion-in-archive-weblogic,-library-inclusion-in-archive-by-user" name="library-inclusion-in-archive"/>
-    <target if="is.jars.in.ejbjar" name="-library-inclusion-in-archive-by-user"/>
+    <target if="is.jars.in.ejbjar" name="-library-inclusion-in-archive-by-user">
+        <copyfiles files="${file.reference.eclipselink.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.javax.persistence.source_2.1.0.v201304241213.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.javax.persistence_2.1.0.v201304241213.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.org.eclipse.persistence.jpars.source_2.5.2.v20140319-9ad6abd.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.org.eclipse.persistence.jpars_2.5.2.v20140319-9ad6abd.jar}" todir="${build.classes.dir}"/>
+    </target>
     <target if="is.server.weblogic" name="-library-inclusion-in-archive-weblogic">
-        <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>
+        <basename file="${file.reference.eclipselink.jar}" property="manifest.file.reference.eclipselink.jar"/>
+        <basename file="${file.reference.javax.persistence.source_2.1.0.v201304241213.jar}" property="manifest.file.reference.javax.persistence.source_2.1.0.v201304241213.jar"/>
+        <basename file="${file.reference.javax.persistence_2.1.0.v201304241213.jar}" property="manifest.file.reference.javax.persistence_2.1.0.v201304241213.jar"/>
+        <basename file="${file.reference.org.eclipse.persistence.jpars.source_2.5.2.v20140319-9ad6abd.jar}" property="manifest.file.reference.org.eclipse.persistence.jpars.source_2.5.2.v20140319-9ad6abd.jar"/>
+        <basename file="${file.reference.org.eclipse.persistence.jpars_2.5.2.v20140319-9ad6abd.jar}" property="manifest.file.reference.org.eclipse.persistence.jpars_2.5.2.v20140319-9ad6abd.jar"/>
+        <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
+            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 jar-4 jar-5 "/>
+            <attribute name="jar-1-Extension-Name" value="${manifest.file.reference.eclipselink.jar}"/>
+            <attribute name="jar-2-Extension-Name" value="${manifest.file.reference.javax.persistence.source_2.1.0.v201304241213.jar}"/>
+            <attribute name="jar-3-Extension-Name" value="${manifest.file.reference.javax.persistence_2.1.0.v201304241213.jar}"/>
+            <attribute name="jar-4-Extension-Name" value="${manifest.file.reference.org.eclipse.persistence.jpars.source_2.5.2.v20140319-9ad6abd.jar}"/>
+            <attribute name="jar-5-Extension-Name" value="${manifest.file.reference.org.eclipse.persistence.jpars_2.5.2.v20140319-9ad6abd.jar}"/>
+        </manifest>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
+        <copyfiles files="${file.reference.eclipselink.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.javax.persistence.source_2.1.0.v201304241213.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.javax.persistence_2.1.0.v201304241213.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.eclipse.persistence.jpars.source_2.5.2.v20140319-9ad6abd.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.org.eclipse.persistence.jpars_2.5.2.v20140319-9ad6abd.jar}" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
     <target name="-copy-meta-inf">

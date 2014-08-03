@@ -33,3 +33,8 @@ and open the template in the editor.
 #panel-registration{
     width: 33%;
 }
+
+.custom-table {
+    border: 1px solid black;
+    padding: 10px;
+}

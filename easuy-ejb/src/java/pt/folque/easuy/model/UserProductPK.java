@@ -37,7 +37,7 @@ public class UserProductPK implements Serializable {
 
     public UserProductPK() {
     }
-    
+
     public UserProductPK(long productId, long userId, Date date) {
         this.productId = productId;
         this.userId = userId;

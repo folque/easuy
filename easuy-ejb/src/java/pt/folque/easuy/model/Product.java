@@ -12,7 +12,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,13 +36,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id"),
     @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name"),
     @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price"),
-    @NamedQuery(name = "Product.findByStock", query = "SELECT p FROM Product p WHERE p.stock = :stock"),
-    @NamedQuery(name = "Product.findByCategoryIdAndMinStock", 
-            query = "SELECT p FROM Product p WHERE p.category.id = :categoryId AND p.stock >= :stock")})
+    @NamedQuery(name = "Product.findByStock", query = "SELECT p FROM Product p WHERE p.stock = :stock")})
 public class Product implements Serializable {
-    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Category category;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,6 +54,9 @@ public class Product implements Serializable {
     private BigDecimal price;
     @Column(name = "stock")
     private Integer stock;
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Category categoryId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<UserProduct> userProductList;
 
@@ -107,6 +104,14 @@ public class Product implements Serializable {
         this.stock = stock;
     }
 
+    public Category getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Category categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public List<UserProduct> getUserProductList() {
         return userProductList;
     }
@@ -139,12 +144,5 @@ public class Product implements Serializable {
     public String toString() {
         return "pt.folque.easuy.model.Product[ id=" + id + " ]";
     }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+    
 }

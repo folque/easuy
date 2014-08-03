@@ -47,28 +47,26 @@ public class UserProductEBeanImpl implements UserProductEBean {
     @Inject
     private UserLogEBean userLogEBean;
 
+    
     @Override
-    @Asynchronous
     public void createNewOrder(long id) {
         UserProduct userProduct = new UserProduct();
-        UserProductPK userProductPK = new UserProductPK();
         Product product = productEBean.findById(id);
-        User user = userEBean.findByEmail(authEBean.getPrincipal().getName());
-        userProductPK.setProductId(product.getId());
-        userProductPK.setUserId(user.getId());
-        userProductPK.setDate(new Date());
+        User user = userEBean.findByEmail(authEBean.getPrincipal().getName()); 
+        System.out.println(user.getEmail());
         userProduct.setProduct(product);
         userProduct.setUser(user);
+        UserProductPK userProductPK = new UserProductPK(product.getId(), user.getId(), new Date());
         userProduct.setUserProductPK(userProductPK);
         product.setStock(product.getStock() - 1);
         productEBean.update(product);
         userLogEBean.setEvent(UserLogType.order, user);
-        mailEBean.sendMsg(user.getEmail(), "Your order info", MailTemplate.order(product));
-        createNewOrder(userProduct);
-    }
-
-    @Override
-    public void createNewOrder(UserProduct userProduct) {
+       /* try {
+         Thread.sleep(3000);
+        }catch(InterruptedException e){
+            Thread.currentThread().interrupt();
+        }*/
+       // mailEBean.sendMsg(user.getEmail(), "Your order info", MailTemplate.order(product));
         userProductDao.persist(userProduct);
     }
 

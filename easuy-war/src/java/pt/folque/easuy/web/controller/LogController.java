@@ -7,35 +7,33 @@
 package pt.folque.easuy.web.controller;
 
 import java.io.IOException;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import pt.folque.easuy.ejb.UserEBean;
+import pt.folque.easuy.ejb.UserLogEBean;
+import pt.folque.easuy.ejb.UserProductEBean;
+import pt.folque.easuy.model.User;
 
 /**
  *
  * @author Diogo
  */
-@WebServlet(name = "ControllerServlet", 
-        urlPatterns = {"/home", 
-            "/register", 
-            "/logout",
-            "/login/success"},
-        loadOnStartup = 1)
-public class ControllerServlet extends HttpServlet {
+@WebServlet(name = "LogController", urlPatterns = {"/easuy/log"})
+public class LogController extends HttpServlet {
     
-    private static final String CATEGORY = "/easuy/category";
-    private static final String REGISTER = "/register";
-    private static final String LOGIN = "/login/login";
-    private static final String LOGOUT = "/logout";
-    private static final String REGISTERSUCCESS = "/login/success";
-    private static final String INDEX = "/home";
-
+    @Inject
+    private UserLogEBean userLogBean;
+    @Inject
+    private UserEBean userBean;
+    @Inject
+    private UserProductEBean userProductBean;
     
+    private static final String LOG = "/easuy/log";
     
-    
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -47,28 +45,22 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String userPath = request.getServletPath();
         
-        if(userPath.equals(INDEX)){
-            userPath = "/index";
-        }
-        if(userPath.equals(REGISTER)){
-            userPath = "/login/register";
-        }
-        if(userPath.equals(REGISTERSUCCESS)){
-            userPath = "/login/success";
-        }
-        if(userPath.equals(LOGOUT)){
-            request.logout();
-            userPath = "/index";
+        if(userPath.equals(LOG)){
+                userPath = "/easuy/log";
+                User user = userBean.findByEmail(request.getRemoteUser());
+                long id = user.getId();
+                request.setAttribute("logList", userLogBean.findByUserId(id));
         }
         
         String url = "/WEB-INF/view" + userPath + ".jsp";
         
         try {
             request.getRequestDispatcher(url).forward(request, response);
-        } catch(Exception e){
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
     
@@ -83,23 +75,23 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String userPath = request.getServletPath();
         
-        if(userPath.equals(REGISTER)){
-            userPath = "/register";
-        }
-        if(userPath.equals(REGISTERSUCCESS)){
-            userPath = "/login/success";
+        if(userPath.equals(LOG)){
+            userPath = "/easuy/log";
         }
         
-        String url = "/WEB-INF/view" + userPath + ".xhtml";
+        String url = "WEB-INF/view" + userPath + ".jsp";
         
         try {
             request.getRequestDispatcher(url).forward(request, response);
-        } catch(Exception e){
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
+    
+    
     
     /**
      * Returns a short description of the servlet.

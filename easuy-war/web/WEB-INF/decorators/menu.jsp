@@ -4,9 +4,9 @@
     
     <c:choose>
         <c:when test="${not empty pageContext.request.remoteUser}">
-            <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
-            <li class="active"><a href="${pageContext.request.contextPath}/easuy/category">Shop</a></li>
-            <li><a href="${pageContext.request.contextPath}/easuy/log">Log</a></li>
+            <li><a href="<c:url value="/home" />" >Home</a></li>
+            <li class="active"><a href="<c:url value="/easuy/category" />" >Shop</a></li>
+            <li><a href="<c:url value="/easuy/log" />" >Log</a></li>
         </c:when>
         <c:otherwise>
             <%@ include file="/WEB-INF/view/login/login.jsp"%>

@@ -3,6 +3,8 @@
   <persistence-unit name="easuy-ejbPU" transaction-type="JTA">
     <jta-data-source>jdbc/easuy</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+    <properties>
+        <property name="eclipselink.logging.level" value="ALL" />
+    </properties>
   </persistence-unit>
 </persistence>

@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import pt.folque.easuy.ejb.CategoryEBean;
 import pt.folque.easuy.ejb.ProductEBean;
 import pt.folque.easuy.ejb.UserProductEBean;
@@ -22,7 +23,7 @@ import pt.folque.easuy.model.Product;
  *
  * @author Diogo
  */
-@WebServlet(name = "CategoryController", urlPatterns = {"/easuy/category", "/easuy/category/*"})
+@WebServlet(name = "CategoryController", urlPatterns = {"/easuy/category", "/easuy/product", "/easuy/success"})
 public class CategoryController extends HttpServlet {
     
     @Inject
@@ -33,6 +34,8 @@ public class CategoryController extends HttpServlet {
     private UserProductEBean userProductBean;
     
     private static final String CATEGORY = "/easuy/category";
+    private static final String PRODUCT = "/easuy/product";
+    private static final String SUCCESS = "/easuy/success";
     
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -46,20 +49,27 @@ public class CategoryController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession(false);
+        
         String userPath = request.getServletPath();
         
         if(userPath.equals(CATEGORY)){
-            if(request.getPathInfo() != null && request.getPathInfo().length() > 1){
-                String[] pathInfo = request.getPathInfo().split("/");
-                int catId = Integer.valueOf(pathInfo[1]);
-                request.setAttribute("listProducts", categoryBean.findById(catId).getProductList());
-                userPath = "/easuy/product";
-            }
-            else {
-                userPath = "/easuy/category";
-                
-                request.setAttribute("listCategories", categoryBean.findAll());
-            }
+            userPath = "/easuy/category";
+            request.setAttribute("listCategories", categoryBean.findAll());
+        }
+        
+        if(userPath.equals(PRODUCT)){
+            long catId = Long.valueOf(session.getAttribute("catId").toString());
+            session.removeAttribute("catId");
+            request.setAttribute("listProducts", categoryBean.findById(catId).getProductList());
+            userPath = "/easuy/product";
+        }
+        
+        if(userPath.equals(SUCCESS)){
+            Product product = (Product)session.getAttribute("product");
+            request.setAttribute("product", product);
+            session.removeAttribute("product");
+            userPath = "/easuy/success";
         }
         
         String url = "/WEB-INF/view" + userPath + ".jsp";
@@ -82,26 +92,38 @@ public class CategoryController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
         
         String userPath = request.getServletPath();
-        
         if(userPath.equals(CATEGORY)){
+            session.setAttribute("catId", request.getParameter("catId"));
+            String userPathAux = "/easuy/product";
+            String url = "/WEB-INF/view" + userPathAux + ".jsp";
+            try {
+                request.getRequestDispatcher(url).forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/easuy/product");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        
+        else if(userPath.equals(PRODUCT)){
             long prodId = Long.valueOf(request.getParameter("prodId"));
             userProductBean.createNewOrder(prodId);
             Product product = productBean.findById(prodId);
+            session.setAttribute("prod", product);
+            String userPathAux = "/easuy/success";
             
-            request.setAttribute("prod", product);
-            userPath = "/easuy/success";
-            
+            String url = "/WEB-INF/view" + userPathAux + ".jsp";
+            try {
+                request.getRequestDispatcher(url).forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/easuy/success");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
         
-        String url = "WEB-INF/view" + userPath + ".jsp";
-        
-        try {
-            request.getRequestDispatcher(url).forward(request, response);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
     
     

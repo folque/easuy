@@ -7,7 +7,6 @@
 package pt.folque.easuy.ejb;
 
 import java.util.List;
-import java.util.concurrent.Future;
 import javax.ejb.Local;
 import pt.folque.easuy.model.User;
 
@@ -17,8 +16,6 @@ import pt.folque.easuy.model.User;
  */
 @Local
 public interface UserEBean {
-    
-    public void createNewUser(User user);
     
     public void createNewUser(String email, String password, String role);
     

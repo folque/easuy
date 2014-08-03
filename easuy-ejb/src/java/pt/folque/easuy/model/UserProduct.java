@@ -23,10 +23,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user_product")
 @NamedQueries({
-    @NamedQuery(name = "UserProduct.findAll", query = "SELECT up FROM UserProduct up"),
-    @NamedQuery(name = "UserProduct.findByProductId", query = "SELECT up FROM UserProduct up WHERE up.userProductPK.productId = :productId"),
-    @NamedQuery(name = "UserProduct.findByUserId", query = "SELECT up FROM UserProduct up WHERE up.userProductPK.userId = :userId"),
-    @NamedQuery(name = "UserProduct.findByDate", query = "SELECT up FROM UserProduct up WHERE up.userProductPK.date = :date")})
+    @NamedQuery(name = "UserProduct.findAll", query = "SELECT u FROM UserProduct u"),
+    @NamedQuery(name = "UserProduct.findByProductId", query = "SELECT u FROM UserProduct u WHERE u.userProductPK.productId = :productId"),
+    @NamedQuery(name = "UserProduct.findByUserId", query = "SELECT u FROM UserProduct u WHERE u.userProductPK.userId = :userId"),
+    @NamedQuery(name = "UserProduct.findByDate", query = "SELECT u FROM UserProduct u WHERE u.userProductPK.date = :date")})
 public class UserProduct implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -97,4 +97,5 @@ public class UserProduct implements Serializable {
     public String toString() {
         return "pt.folque.easuy.model.UserProduct[ userProductPK=" + userProductPK + " ]";
     }
+    
 }

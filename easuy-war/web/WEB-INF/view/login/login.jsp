@@ -1,4 +1,3 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <form method="POST" action="j_security_check">
     <table>
         <tr>
@@ -16,5 +15,5 @@
     </table>
 </form>
 <h:form>
-    <a href="${pageContext.request.contextPath}/WEB-INF/view/login/register.xhtml">Register</a>
+    <a href="<c:url value="/register"/>" >Register</a>
 </h:form>

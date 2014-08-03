@@ -51,7 +51,7 @@ public class CategoryMBean implements Serializable{
     }
     
     public Category getCategory(){
-        if(this.category == null) category = categoryEBean.findById(1);
+//        if(this.category == null) category = categoryEBean.findById(1);
         return category;
     }
     
