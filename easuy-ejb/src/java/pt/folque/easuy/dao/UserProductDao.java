@@ -37,6 +37,10 @@ public class UserProductDao {
         return null;
     }
     
+    public UserProduct findById(Long id){
+        return em.find(UserProduct.class, id);
+    }
+    
     public List<UserProduct> findAll(){
         List<UserProduct> users = em.createNamedQuery("UserProduct.findAll")
                 .getResultList();
@@ -65,7 +69,24 @@ public class UserProductDao {
         return users;
     }
     
+    public UserProduct findByProductAndUser(Long productId, Long userId){
+        List<UserProduct> userProducts = em.createNamedQuery("UserProduct.findByProductAndUser")
+                .setParameter("productId", productId)
+                .setParameter("userId", userId)
+                .getResultList();
+        return !userProducts.isEmpty() ? userProducts.get(0) : null;
+    }
+    
+    public List<UserProduct> findByUserAndPurchased(Long userId, Boolean purchased){
+        List<UserProduct> userProducts = em.createNamedQuery("UserProduct.findbyUserAndPurchased")
+                .setParameter("userId", userId)
+                .setParameter("purchased", purchased)
+                .getResultList();
+        return userProducts;
+    }
+    
     public void persist(UserProduct userProduct) {
+        System.out.println(userProduct);
         em.persist(userProduct);
     }
     

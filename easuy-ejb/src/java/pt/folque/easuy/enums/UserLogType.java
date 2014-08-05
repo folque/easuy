@@ -14,6 +14,7 @@ public enum UserLogType {
     register,
     login,
     logout,
-    order;
+    order,
+    purchase;
     
 }

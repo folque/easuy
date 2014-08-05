@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -58,7 +59,7 @@ public class User implements Serializable {
     @Column(name = "role")
     private String role;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<UserProduct> userProductList;
+    private List<UserProduct> userProducts;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<UserLog> userLogList;
 
@@ -108,12 +109,12 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    public List<UserProduct> getUserProductList() {
-        return userProductList;
+    public List<UserProduct> getUserProducts() {
+        return userProducts;
     }
 
-    public void setUserProductList(List<UserProduct> userProductList) {
-        this.userProductList = userProductList;
+    public void setUserProducts(List<UserProduct> userProducts) {
+        this.userProducts = userProducts;
     }
 
     public List<UserLog> getUserLogList() {

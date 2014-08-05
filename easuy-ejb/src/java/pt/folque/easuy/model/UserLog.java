@@ -8,13 +8,21 @@ package pt.folque.easuy.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import pt.folque.easuy.enums.UserLogType;
 
 /**
@@ -25,67 +33,61 @@ import pt.folque.easuy.enums.UserLogType;
 @Table(name = "user_log")
 @NamedQueries({
     @NamedQuery(name = "UserLog.findAll", query = "SELECT u FROM UserLog u"),
-    @NamedQuery(name = "UserLog.findByUserId", query = "SELECT u FROM UserLog u WHERE u.userLogPK.userId = :userId"),
-    @NamedQuery(name = "UserLog.findByDate", query = "SELECT u FROM UserLog u WHERE u.userLogPK.date = :date"),
-    @NamedQuery(name = "UserLog.findByType", query = "SELECT u FROM UserLog u WHERE u.userLogPK.type = :type")})
+    @NamedQuery(name = "UserLog.findByUserId", query = "SELECT u FROM UserLog u WHERE u.user.id = :userId"),
+    @NamedQuery(name = "UserLog.findByDate", query = "SELECT u FROM UserLog u WHERE u.date = :date"),
+    @NamedQuery(name = "UserLog.findByType", query = "SELECT u FROM UserLog u WHERE u.type = :type")})
 public class UserLog implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected UserLogPK userLogPK;
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+    
+    @Column(name = "date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
+    
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private UserLogType type;
+    
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User user;
 
     public UserLog() {
     }
 
-    public UserLog(UserLogPK userLogPK) {
-        this.userLogPK = userLogPK;
+    public Long getId() {
+        return id;
     }
-
-    public UserLog(long userId, Date date, UserLogType type) {
-        this.userLogPK = new UserLogPK(userId, date, type);
-    }
-
-    public UserLogPK getUserLogPK() {
-        return userLogPK;
-    }
-
-    public void setUserLogPK(UserLogPK userLogPK) {
-        this.userLogPK = userLogPK;
-    }
-
+    
     public User getUser() {
         return user;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+     
+    public UserLogType getType() {
+        return type;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (userLogPK != null ? userLogPK.hashCode() : 0);
-        return hash;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserLog)) {
-            return false;
-        }
-        UserLog other = (UserLog) object;
-        if ((this.userLogPK == null && other.userLogPK != null) || (this.userLogPK != null && !this.userLogPK.equals(other.userLogPK))) {
-            return false;
-        }
-        return true;
-    }
 
-    @Override
-    public String toString() {
-        return "pt.folque.easuy.model.UserLog[ userLogPK=" + userLogPK + " ]";
-    }
-    
+    public void setType(UserLogType type) {
+        this.type = type;
+    }    
 }

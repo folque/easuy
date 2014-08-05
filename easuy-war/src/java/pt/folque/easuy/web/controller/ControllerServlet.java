@@ -7,11 +7,13 @@
 package pt.folque.easuy.web.controller;
 
 import java.io.IOException;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import pt.folque.easuy.ejb.UserEBean;
 
 /**
  *
@@ -19,14 +21,17 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ControllerServlet", 
         urlPatterns = {"/home", 
-            "/register", 
+            "/login/register", 
             "/logout",
             "/login/success"},
         loadOnStartup = 1)
 public class ControllerServlet extends HttpServlet {
     
+    @Inject
+    private UserEBean userBean;
+    
     private static final String CATEGORY = "/easuy/category";
-    private static final String REGISTER = "/register";
+    private static final String REGISTER = "/login/register";
     private static final String LOGIN = "/login/login";
     private static final String LOGOUT = "/logout";
     private static final String REGISTERSUCCESS = "/login/success";
@@ -84,15 +89,27 @@ public class ControllerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String userPath = request.getServletPath();
-        
         if(userPath.equals(REGISTER)){
-            userPath = "/register";
+            userPath = "/login/register";
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            
+            userBean.createNewUser(email, password, "user");
+            
+            String url = "/WEB-INF/view" + userPath + ".jsp";
+            
+            try {
+                request.getRequestDispatcher(url).forward(request, response);
+                response.sendRedirect(request.getContextPath() + INDEX);
+            } catch(Exception e){
+                e.printStackTrace();
+            }            
         }
         if(userPath.equals(REGISTERSUCCESS)){
             userPath = "/login/success";
         }
         
-        String url = "/WEB-INF/view" + userPath + ".xhtml";
+        String url = "/WEB-INF/view" + userPath + ".jsp";
         
         try {
             request.getRequestDispatcher(url).forward(request, response);

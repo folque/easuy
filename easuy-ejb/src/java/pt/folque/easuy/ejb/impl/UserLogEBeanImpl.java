@@ -33,8 +33,8 @@ public class UserLogEBeanImpl implements UserLogEBean {
     @Override
     public void setEvent(UserLogType type, User user){
         UserLog userLog = new UserLog();
-        UserLogPK userLogPK = new UserLogPK(user.getId(), new Date(), type);
-        userLog.setUserLogPK(userLogPK);
+        userLog.setDate(new Date());
+        userLog.setType(type);
         userLog.setUser(user);
         
         userLogDao.persist(userLog);

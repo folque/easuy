@@ -41,7 +41,7 @@ public class Category implements Serializable {
     @Size(max = 45)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Product> productList;
 
     public Category() {

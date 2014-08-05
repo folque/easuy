@@ -1,24 +1,29 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:forEach items="${logList}" var="logs">
+<c:forEach items="${listHistory}" var="hist">
     <table class="custom-table">
         <thead>
             <tr>
                 <th>
-                    Date
+                    Product
                 </th>
                 <th>
-                    Action
+                    Price
+                </th>
+                <th>
+                    Date of order
                 </th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>
-                    <fmt:formatDate value="${logs.date}" pattern="yyyy-MM-dd HH:mm" />
+                    ${hist.product.name}
                 </td>
                 <td>
-                    ${logs.type}
+                    ${hist.product.price}
+                </td>
+                <td>
+                    ${hist.date}
                 </td>
             </tr>
         </tbody>

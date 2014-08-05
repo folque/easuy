@@ -22,7 +22,7 @@ import pt.folque.easuy.model.User;
  *
  * @author Diogo
  */
-@WebServlet(name = "LogController", urlPatterns = {"/easuy/log"})
+@WebServlet(name = "LogController", urlPatterns = {"/easuy/log", "/easuy/history"})
 public class LogController extends HttpServlet {
     
     @Inject
@@ -33,6 +33,7 @@ public class LogController extends HttpServlet {
     private UserProductEBean userProductBean;
     
     private static final String LOG = "/easuy/log";
+    private static final String HISTORY = "/easuy/history";
     
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -49,10 +50,15 @@ public class LogController extends HttpServlet {
         String userPath = request.getServletPath();
         
         if(userPath.equals(LOG)){
-                userPath = "/easuy/log";
                 User user = userBean.findByEmail(request.getRemoteUser());
                 long id = user.getId();
                 request.setAttribute("logList", userLogBean.findByUserId(id));
+        }
+        
+        else if(userPath.equals(HISTORY)){
+            User user = userBean.findByEmail(request.getRemoteUser());
+            long id = user.getId();
+            request.setAttribute("listHistory", userProductBean.getPurchased(user.getId()));
         }
         
         String url = "/WEB-INF/view" + userPath + ".jsp";

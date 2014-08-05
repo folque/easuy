@@ -15,5 +15,5 @@
     </table>
 </form>
 <h:form>
-    <a href="<c:url value="/register"/>" >Register</a>
+    <a href='<c:url value="/login/register"/>' >Register</a>
 </h:form>

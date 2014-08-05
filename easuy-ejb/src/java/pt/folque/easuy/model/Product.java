@@ -21,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -56,9 +57,9 @@ public class Product implements Serializable {
     private Integer stock;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Category categoryId;
+    private Category category;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-    private List<UserProduct> userProductList;
+    private List<UserProduct> userProducts;
 
     public Product() {
     }
@@ -104,22 +105,22 @@ public class Product implements Serializable {
         this.stock = stock;
     }
 
-    public Category getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Category categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category categoryId) {
+        this.category = categoryId;
     }
 
-    public List<UserProduct> getUserProductList() {
-        return userProductList;
+    public List<UserProduct> getUserProducts() {
+        return userProducts;
     }
 
-    public void setUserProductList(List<UserProduct> userProductList) {
-        this.userProductList = userProductList;
+    public void setUserProducts(List<UserProduct> userProductS) {
+        this.userProducts = userProductS;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -144,5 +145,5 @@ public class Product implements Serializable {
     public String toString() {
         return "pt.folque.easuy.model.Product[ id=" + id + " ]";
     }
-    
+
 }

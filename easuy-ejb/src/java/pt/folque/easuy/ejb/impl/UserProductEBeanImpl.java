@@ -8,7 +8,6 @@ package pt.folque.easuy.ejb.impl;
 
 import java.util.Date;
 import java.util.List;
-import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
@@ -23,8 +22,6 @@ import pt.folque.easuy.enums.UserLogType;
 import pt.folque.easuy.model.Product;
 import pt.folque.easuy.model.User;
 import pt.folque.easuy.model.UserProduct;
-import pt.folque.easuy.model.UserProductPK;
-import pt.folque.easuy.templates.MailTemplate;
 
 /**
  *
@@ -49,17 +46,14 @@ public class UserProductEBeanImpl implements UserProductEBean {
 
     
     @Override
-    public void createNewOrder(long id) {
+    public void createNewOrder(Long id) {
         UserProduct userProduct = new UserProduct();
         Product product = productEBean.findById(id);
         User user = userEBean.findByEmail(authEBean.getPrincipal().getName()); 
-        System.out.println(user.getEmail());
         userProduct.setProduct(product);
         userProduct.setUser(user);
-        UserProductPK userProductPK = new UserProductPK(product.getId(), user.getId(), new Date());
-        userProduct.setUserProductPK(userProductPK);
-        product.setStock(product.getStock() - 1);
-        productEBean.update(product);
+        userProduct.setDate(new Date());
+        userProduct.setPurchased(false);
         userLogEBean.setEvent(UserLogType.order, user);
        /* try {
          Thread.sleep(3000);
@@ -68,6 +62,36 @@ public class UserProductEBeanImpl implements UserProductEBean {
         }*/
        // mailEBean.sendMsg(user.getEmail(), "Your order info", MailTemplate.order(product));
         userProductDao.persist(userProduct);
+    }
+    
+    @Override
+    public void buy(Long userId){
+        List<UserProduct> userProducts = userProductDao.findByUserAndPurchased(userId, Boolean.FALSE);
+        
+        for (UserProduct userProduct : userProducts) {
+            buyProduct(userProduct.getId());
+        }
+    }
+    
+    public void buyProduct(Long id){
+        UserProduct userProduct = userProductDao.findById(id);
+        userProduct.setPurchased(true);
+        Product product = userProduct.getProduct();
+        System.out.println(product);
+        User user = userProduct.getUser();
+        product.setStock(product.getStock() - 1);
+        userProductDao.merge(userProduct);
+        userLogEBean.setEvent(UserLogType.purchase, user);
+    }
+    
+    @Override
+    public List<UserProduct> getUnpurchased(Long userId){
+        return userProductDao.findByUserAndPurchased(userId, Boolean.FALSE);
+    }
+    
+    @Override
+    public List<UserProduct> getPurchased(Long userId){
+        return userProductDao.findByUserAndPurchased(userId, Boolean.TRUE);
     }
 
     @Override
@@ -82,7 +106,8 @@ public class UserProductEBeanImpl implements UserProductEBean {
 
     @Override
     public UserProduct findByProductAndUserId(long productId, long userId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        userProductDao.find
+        return null;
     }
 
 

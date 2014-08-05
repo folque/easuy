@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<form>
+<form method='POST'>
     <table>
         <tr>
             <td class="table-login-cell">
@@ -23,7 +23,7 @@
             </td>
             <td class="table-login-cell">
                 <input type="password" id="password" value="${register.password}"
-                       required="true" />
+                       required="true" name='password' />
             </td>
         </tr>
         <tr>

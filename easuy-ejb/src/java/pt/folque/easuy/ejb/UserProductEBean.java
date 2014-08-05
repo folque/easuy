@@ -8,7 +8,6 @@ package pt.folque.easuy.ejb;
 
 import java.util.List;
 import javax.transaction.Transactional;
-import pt.folque.easuy.model.Product;
 import pt.folque.easuy.model.UserProduct;
 
 /**
@@ -18,9 +17,13 @@ import pt.folque.easuy.model.UserProduct;
 public interface UserProductEBean {
     
     @Transactional
-    public void createNewOrder(long id);
+    public void createNewOrder(Long id);
+    @Transactional
+    public void buy(Long id);
     public List<UserProduct> findByUserId(long userId);
     public List<UserProduct> findByProductId(long productId);
     public UserProduct findByProductAndUserId(long productId, long userId);
+    public List<UserProduct> getUnpurchased(Long userId);
+    public List<UserProduct> getPurchased(Long userId);
     
 }
