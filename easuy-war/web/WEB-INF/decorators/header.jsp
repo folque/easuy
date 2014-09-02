@@ -11,8 +11,5 @@
                             <li><a>${auth.loggedInUser}</a></li>
                             <li><a href="<c:url value="/logout" />" >Logout</a></li>
                         </c:if>
-    <form class="navbar-form navbar-right">
-        <input type="text" class="form-control" placeholder="Search..."/>
-    </form>
 </div>
 

@@ -8,16 +8,14 @@ package pt.folque.easuy.ejb.impl;
 
 import java.util.Date;
 import java.util.List;
-import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
-import pt.folque.easuy.dao.UserLogDao;
+import pt.folque.easuy.orm.UserLogOrm;
 import pt.folque.easuy.ejb.UserLogEBean;
 import pt.folque.easuy.enums.UserLogType;
 import pt.folque.easuy.model.User;
 import pt.folque.easuy.model.UserLog;
-import pt.folque.easuy.model.UserLogPK;
 
 /**
  *
@@ -28,7 +26,7 @@ import pt.folque.easuy.model.UserLogPK;
 public class UserLogEBeanImpl implements UserLogEBean {
     
     @Inject
-    private UserLogDao userLogDao;
+    private UserLogOrm userLogOrm;
     
     @Override
     public void setEvent(UserLogType type, User user){
@@ -37,14 +35,14 @@ public class UserLogEBeanImpl implements UserLogEBean {
         userLog.setType(type);
         userLog.setUser(user);
         
-        userLogDao.persist(userLog);
+        userLogOrm.persist(userLog);
     }    
     
     @Override
     public List<UserLog> findByUserId(long id){
         List<UserLog> userLogs = null;
         try {
-            userLogs = userLogDao.findByUserId(id);
+            userLogs = userLogOrm.findByUserId(id);
         } catch(Exception e){
             System.err.println("Error while retrieving user logs by user id with cause: " + e.getCause());
         }
@@ -55,7 +53,7 @@ public class UserLogEBeanImpl implements UserLogEBean {
     public List<UserLog> findAll(){
         List<UserLog> userLogs = null;
         try {
-            userLogs = userLogDao.findAll();
+            userLogs = userLogOrm.findAll();
         } catch(Exception e){
             System.err.println("Error while retrieving all user log with cause: " + e.getCause());
         }

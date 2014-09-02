@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package pt.folque.easuy.dao;
+package pt.folque.easuy.orm;
 
 import java.util.List;
 import javax.ejb.Stateless;
@@ -19,7 +19,7 @@ import pt.folque.easuy.model.User;
  */
 @Stateless
 @LocalBean
-public class UserDao{
+public class UserOrm{
 @PersistenceContext(unitName = "easuy-ejbPU")
     private EntityManager em;
 

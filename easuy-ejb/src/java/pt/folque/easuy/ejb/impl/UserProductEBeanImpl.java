@@ -11,7 +11,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
-import pt.folque.easuy.dao.UserProductDao;
+import pt.folque.easuy.orm.UserProductOrm;
 import pt.folque.easuy.ejb.AuthEBean;
 import pt.folque.easuy.ejb.MailEBean;
 import pt.folque.easuy.ejb.ProductEBean;
@@ -32,7 +32,7 @@ import pt.folque.easuy.model.UserProduct;
 public class UserProductEBeanImpl implements UserProductEBean {
     
     @Inject
-    private UserProductDao userProductDao;
+    private UserProductOrm userProductOrm;
     @Inject
     private AuthEBean authEBean;
     @Inject
@@ -61,12 +61,12 @@ public class UserProductEBeanImpl implements UserProductEBean {
             Thread.currentThread().interrupt();
         }*/
        // mailEBean.sendMsg(user.getEmail(), "Your order info", MailTemplate.order(product));
-        userProductDao.persist(userProduct);
+        userProductOrm.persist(userProduct);
     }
     
     @Override
     public void buy(Long userId){
-        List<UserProduct> userProducts = userProductDao.findByUserAndPurchased(userId, Boolean.FALSE);
+        List<UserProduct> userProducts = userProductOrm.findByUserAndPurchased(userId, Boolean.FALSE);
         
         for (UserProduct userProduct : userProducts) {
             buyProduct(userProduct.getId());
@@ -74,41 +74,22 @@ public class UserProductEBeanImpl implements UserProductEBean {
     }
     
     public void buyProduct(Long id){
-        UserProduct userProduct = userProductDao.findById(id);
+        UserProduct userProduct = userProductOrm.findById(id);
         userProduct.setPurchased(true);
         Product product = userProduct.getProduct();
-        System.out.println(product);
         User user = userProduct.getUser();
         product.setStock(product.getStock() - 1);
-        userProductDao.merge(userProduct);
+        userProductOrm.merge(userProduct);
         userLogEBean.setEvent(UserLogType.purchase, user);
     }
     
     @Override
     public List<UserProduct> getUnpurchased(Long userId){
-        return userProductDao.findByUserAndPurchased(userId, Boolean.FALSE);
+        return userProductOrm.findByUserAndPurchased(userId, Boolean.FALSE);
     }
     
     @Override
     public List<UserProduct> getPurchased(Long userId){
-        return userProductDao.findByUserAndPurchased(userId, Boolean.TRUE);
+        return userProductOrm.findByUserAndPurchased(userId, Boolean.TRUE);
     }
-
-    @Override
-    public List<UserProduct> findByUserId(long userId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<UserProduct> findByProductId(long productId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public UserProduct findByProductAndUserId(long productId, long userId) {
-//        userProductDao.find
-        return null;
-    }
-
-
 }

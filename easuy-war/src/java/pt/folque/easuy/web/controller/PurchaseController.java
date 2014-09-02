@@ -28,7 +28,7 @@ import pt.folque.easuy.model.UserProduct;
  * @author Diogo
  */
 @WebServlet(name = "CategoryController", urlPatterns = {"/easuy/category", "/easuy/product", "/easuy/success", "/easuy/cart"})
-public class CategoryController extends HttpServlet {
+public class PurchaseController extends HttpServlet {
     
     @Inject
     private CategoryEBean categoryBean;

@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:forEach items="${listHistory}" var="hist">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
     <table class="custom-table">
         <thead>
             <tr>
@@ -15,6 +15,7 @@
             </tr>
         </thead>
         <tbody>
+            <c:forEach items="${listHistory}" var="hist">
             <tr>
                 <td>
                     ${hist.product.name}
@@ -23,9 +24,9 @@
                     ${hist.product.price}
                 </td>
                 <td>
-                    ${hist.date}
+                    <fmt:formatDate value="${hist.date}" pattern="yyyy-MM-dd HH:mm" />
                 </td>
             </tr>
+            </c:forEach>
         </tbody>
     </table>
-</c:forEach>

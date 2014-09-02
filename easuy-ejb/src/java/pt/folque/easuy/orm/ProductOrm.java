@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package pt.folque.easuy.dao;
+package pt.folque.easuy.orm;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,7 +20,7 @@ import pt.folque.easuy.model.Product;
  */
 @Stateless
 @LocalBean
-public class ProductDao {
+public class ProductOrm {
 @PersistenceContext(unitName = "easuy-ejbPU")
     private EntityManager em;
 

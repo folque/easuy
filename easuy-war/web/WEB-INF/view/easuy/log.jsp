@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:forEach items="${logList}" var="logs">
     <table class="custom-table">
         <thead>
             <tr>
@@ -13,14 +12,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                    <fmt:formatDate value="${logs.date}" pattern="yyyy-MM-dd HH:mm" />
-                </td>
-                <td>
-                    ${logs.type}
-                </td>
-            </tr>
+            <c:forEach items="${logList}" var="logs">
+                <tr>
+                    <td>
+                        <fmt:formatDate value="${logs.date}" pattern="yyyy-MM-dd HH:mm" />
+                    </td>
+                    <td>
+                        ${logs.type}
+                    </td>
+                </tr>
+            </c:forEach>
         </tbody>
     </table>
-</c:forEach>

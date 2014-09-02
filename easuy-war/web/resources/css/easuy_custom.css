@@ -34,7 +34,11 @@ and open the template in the editor.
     width: 33%;
 }
 
-.custom-table {
+.custom-table td {
     border: 1px solid black;
+}
+
+.custom-table th, .custom-table td {
+    text-align: center;
     padding: 10px;
 }

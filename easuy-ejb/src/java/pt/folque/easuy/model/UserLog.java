@@ -9,7 +9,6 @@ package pt.folque.easuy.model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -32,8 +31,8 @@ import pt.folque.easuy.enums.UserLogType;
 @Entity
 @Table(name = "user_log")
 @NamedQueries({
-    @NamedQuery(name = "UserLog.findAll", query = "SELECT u FROM UserLog u"),
-    @NamedQuery(name = "UserLog.findByUserId", query = "SELECT u FROM UserLog u WHERE u.user.id = :userId"),
+    @NamedQuery(name = "UserLog.findAll", query = "SELECT u FROM UserLog u ORDER BY u.date DESC"),
+    @NamedQuery(name = "UserLog.findByUserId", query = "SELECT u FROM UserLog u WHERE u.user.id = :userId ORDER BY u.date DESC"),
     @NamedQuery(name = "UserLog.findByDate", query = "SELECT u FROM UserLog u WHERE u.date = :date"),
     @NamedQuery(name = "UserLog.findByType", query = "SELECT u FROM UserLog u WHERE u.type = :type")})
 public class UserLog implements Serializable {

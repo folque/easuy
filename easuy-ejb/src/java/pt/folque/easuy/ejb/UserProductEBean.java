@@ -20,9 +20,6 @@ public interface UserProductEBean {
     public void createNewOrder(Long id);
     @Transactional
     public void buy(Long id);
-    public List<UserProduct> findByUserId(long userId);
-    public List<UserProduct> findByProductId(long productId);
-    public UserProduct findByProductAndUserId(long productId, long userId);
     public List<UserProduct> getUnpurchased(Long userId);
     public List<UserProduct> getPurchased(Long userId);
     

@@ -57,7 +57,6 @@ public class LogController extends HttpServlet {
         
         else if(userPath.equals(HISTORY)){
             User user = userBean.findByEmail(request.getRemoteUser());
-            long id = user.getId();
             request.setAttribute("listHistory", userProductBean.getPurchased(user.getId()));
         }
         

@@ -4,7 +4,7 @@
 * and open the template in the editor.
 */
 
-package pt.folque.easuy.dao;
+package pt.folque.easuy.orm;
 
 import java.util.Date;
 import java.util.List;
@@ -20,7 +20,7 @@ import pt.folque.easuy.model.UserProduct;
  */
 @Stateless
 @LocalBean
-public class UserProductDao {
+public class UserProductOrm {
     
     @PersistenceContext(unitName = "easuy-ejbPU")
     private EntityManager em;

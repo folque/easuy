@@ -3,12 +3,10 @@ package pt.folque.easuy.ejb.impl;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.concurrent.Future;
-import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
-import pt.folque.easuy.dao.UserDao;
+import pt.folque.easuy.orm.UserOrm;
 import pt.folque.easuy.ejb.MailEBean;
 import pt.folque.easuy.ejb.UserEBean;
 import pt.folque.easuy.ejb.UserLogEBean;
@@ -24,7 +22,7 @@ import pt.folque.easuy.templates.MailTemplate;
 public class UserEBeanImpl implements UserEBean {
     
     @Inject
-    private UserDao userDao;
+    private UserOrm userOrm;
     @Inject
     private UserLogEBean userLogEBean;
     @Inject
@@ -38,7 +36,7 @@ public class UserEBeanImpl implements UserEBean {
         user.setPassword(encryptPassword(password));
         user.setRole(role);
         mailEBean.sendMsg(user.getEmail(), "Easuy Registration", MailTemplate.registration(user));
-        userDao.persist(user);
+        userOrm.persist(user);
     }
     
     @Override
@@ -68,7 +66,7 @@ public class UserEBeanImpl implements UserEBean {
     public User findById(long id){
         User user = null;
         try {
-            user = userDao.findById(id);
+            user = userOrm.findById(id);
         }catch(Exception e){
             System.err.println("Error while retrieving user by id with cause: " + e.getCause());
         }
@@ -79,7 +77,7 @@ public class UserEBeanImpl implements UserEBean {
     public User findByEmail(String email){
         User user = null;
         try {
-            user = userDao.findByEmail(email);
+            user = userOrm.findByEmail(email);
         }catch(Exception e){
             System.err.println("Error while retrieving user by email with cause: " + e.getCause());
         }
@@ -90,7 +88,7 @@ public class UserEBeanImpl implements UserEBean {
     public List<User> findAll(){
         List<User> users = null;
         try {
-            users = userDao.findAll();
+            users = userOrm.findAll();
         }catch(Exception e){
             System.err.println("Error while retrieving all users with reason: " + e.getCause());
         }

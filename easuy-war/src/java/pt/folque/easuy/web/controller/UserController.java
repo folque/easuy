@@ -25,7 +25,7 @@ import pt.folque.easuy.ejb.UserEBean;
             "/logout",
             "/login/success"},
         loadOnStartup = 1)
-public class ControllerServlet extends HttpServlet {
+public class UserController extends HttpServlet {
     
     @Inject
     private UserEBean userBean;

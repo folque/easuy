@@ -10,7 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
-import pt.folque.easuy.dao.CategoryDao;
+import pt.folque.easuy.orm.CategoryOrm;
 import pt.folque.easuy.ejb.CategoryEBean;
 import pt.folque.easuy.model.Category;
 
@@ -23,18 +23,18 @@ import pt.folque.easuy.model.Category;
 public class CategoryEBeanImpl implements CategoryEBean {
     
     @Inject
-    private CategoryDao categoryDao;
+    private CategoryOrm categoryOrm;
     
     @Override
     public List<Category> findAll() {
-        return categoryDao.findAll();
+        return categoryOrm.findAll();
     }
     
     @Override
     public Category findById(long id) {
         Category category = null;
         try {
-            category = categoryDao.findById(id);
+            category = categoryOrm.findById(id);
         } catch(Exception e){
             System.err.println("Error while finding category by id with cause: " + e.getCause());
         }

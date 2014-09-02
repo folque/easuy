@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,12 +31,12 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "user_product")
 @NamedQueries({
-    @NamedQuery(name = "UserProduct.findAll", query = "SELECT u FROM UserProduct u"),
+    @NamedQuery(name = "UserProduct.findAll", query = "SELECT u FROM UserProduct u ORDER BY u.date DESC"),
     @NamedQuery(name = "UserProduct.findByProductId", query = "SELECT u FROM UserProduct u WHERE u.product.id = :productId"),
-    @NamedQuery(name = "UserProduct.findByUserId", query = "SELECT u FROM UserProduct u WHERE u.user.id = :userId"),
+    @NamedQuery(name = "UserProduct.findByUserId", query = "SELECT u FROM UserProduct u WHERE u.user.id = :userId ORDER BY u.date DESC"),
     @NamedQuery(name = "UserProduct.findByDate", query = "SELECT u FROM UserProduct u WHERE u.date = :date"),
     @NamedQuery(name = "UserProduct.findByProductAndUser", query = "SELECT u FROM UserProduct u WHERE u.product.id = :productId AND u.user.id = :userId"),
-    @NamedQuery(name = "UserProduct.findbyUserAndPurchased", query = "SELECT u FROM UserProduct u WHERE u.user.id = :userId AND u.purchased = :purchased")})
+    @NamedQuery(name = "UserProduct.findbyUserAndPurchased", query = "SELECT u FROM UserProduct u WHERE u.user.id = :userId AND u.purchased = :purchased ORDER BY u.date DESC")})
 public class UserProduct implements Serializable {
     
     @Id
