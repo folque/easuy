@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pt.folque.easuy.model;
 
 import java.io.Serializable;
@@ -26,7 +20,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Diogo
+ * @author Diogo Teixeira
  */
 @Entity
 @Table(name = "user_product")
@@ -38,6 +32,8 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "UserProduct.findByProductAndUser", query = "SELECT u FROM UserProduct u WHERE u.product.id = :productId AND u.user.id = :userId"),
     @NamedQuery(name = "UserProduct.findbyUserAndPurchased", query = "SELECT u FROM UserProduct u WHERE u.user.id = :userId AND u.purchased = :purchased ORDER BY u.date DESC")})
 public class UserProduct implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,8 +49,6 @@ public class UserProduct implements Serializable {
     
     @Column(name = "purchased")
     private Boolean purchased;
-    
-    private static final long serialVersionUID = 1L;
     
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)

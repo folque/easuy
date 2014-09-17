@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pt.folque.easuy.templates;
 
 import pt.folque.easuy.model.Product;
@@ -11,7 +5,7 @@ import pt.folque.easuy.model.User;
 
 /**
  *
- * @author Diogo
+ * @author Diogo Teixeira
  */
 public class MailTemplate {
     

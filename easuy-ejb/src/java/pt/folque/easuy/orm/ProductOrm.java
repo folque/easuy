@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pt.folque.easuy.orm;
 
 import java.math.BigDecimal;
@@ -16,11 +10,12 @@ import pt.folque.easuy.model.Product;
 
 /**
  *
- * @author Diogo
+ * @author Diogo Teixeira
  */
 @Stateless
 @LocalBean
 public class ProductOrm {
+    
 @PersistenceContext(unitName = "easuy-ejbPU")
     private EntityManager em;
 

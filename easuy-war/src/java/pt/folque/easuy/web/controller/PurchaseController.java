@@ -1,9 +1,3 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
-
 package pt.folque.easuy.web.controller;
 
 import java.io.IOException;
@@ -25,7 +19,7 @@ import pt.folque.easuy.model.UserProduct;
 
 /**
  *
- * @author Diogo
+ * @author Diogo Teixeira
  */
 @WebServlet(name = "CategoryController", urlPatterns = {"/easuy/category", "/easuy/product", "/easuy/success", "/easuy/cart"})
 public class PurchaseController extends HttpServlet {
@@ -43,6 +37,8 @@ public class PurchaseController extends HttpServlet {
     private static final String PRODUCT = "/easuy/product";
     private static final String SUCCESS = "/easuy/success";
     private static final String CART = "/easuy/cart";
+    
+    
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -59,31 +55,36 @@ public class PurchaseController extends HttpServlet {
         
         String userPath = request.getServletPath();
         
-        if(userPath.equals(CATEGORY)){
-            userPath = "/easuy/category";
-            request.setAttribute("listCategories", categoryBean.findAll());
-        }
+        String message = "";
         
-        if(userPath.equals(PRODUCT)){
-            long catId = Long.valueOf(session.getAttribute("catId").toString());
-            String message = (String)session.getAttribute("message");
-            session.removeAttribute("message");
-            request.setAttribute("listProducts", categoryBean.findById(catId).getProductList());
-            request.setAttribute("message", message);
-            userPath = "/easuy/product";
-        }
+        switch(userPath){
         
-        if(userPath.equals(SUCCESS)){
-            String message = (String)session.getAttribute("message");
-            request.setAttribute("message", message);
-            session.removeAttribute("message");
-            userPath = "/easuy/success";
-        }
+            case CATEGORY:
+                userPath = "/easuy/category";
+                request.setAttribute("listCategories", categoryBean.findAll());
+                break;
         
-        if(userPath.equals(CART)){
-            User user = userEBean.findByEmail(request.getRemoteUser());
-            List<UserProduct> listUserProducts = userProductBean.getUnpurchased(user.getId());
-            request.setAttribute("listUserProducts", listUserProducts);
+            case PRODUCT:
+                long catId = Long.valueOf(session.getAttribute("catId").toString());
+                message = (String)session.getAttribute("message");
+                session.removeAttribute("message");
+                request.setAttribute("listProducts", categoryBean.findById(catId).getProductList());
+                request.setAttribute("message", message);
+                userPath = "/easuy/product";
+                break;
+        
+            case SUCCESS:
+                message = (String)session.getAttribute("message");
+                request.setAttribute("message", message);
+                session.removeAttribute("message");
+                userPath = "/easuy/success";
+                break;
+        
+            case CART:
+                User user = userEBean.findByEmail(request.getRemoteUser());
+                List<UserProduct> listUserProducts = userProductBean.getUnpurchased(user.getId());
+                request.setAttribute("listUserProducts", listUserProducts);
+                break;
         }
         
         String url = "/WEB-INF/view" + userPath + ".jsp";
@@ -112,10 +113,9 @@ public class PurchaseController extends HttpServlet {
         String userPath = request.getServletPath();
         String url = "";
         String userPathAux = "";
-        switch(userPath){
-            
+        
+        switch(userPath){    
             case CATEGORY:
-
                 session.setAttribute("catId", request.getParameter("catId"));
                 userPathAux = "/easuy/product";
                 url = "/WEB-INF/view" + userPathAux + ".jsp";
@@ -161,17 +161,4 @@ public class PurchaseController extends HttpServlet {
         }
         
     }
-    
-    
-    
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-    
 }

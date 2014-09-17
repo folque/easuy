@@ -8,10 +8,11 @@ package pt.folque.easuy.ejb;
 
 /**
  *
- * @author Diogo
+ * @author Diogo Teixeira
  */
 public interface MailEBean {
     
+    // Sends message to given address, with given title and content
     public void sendMsg(String address, String title, String content);
     
 }

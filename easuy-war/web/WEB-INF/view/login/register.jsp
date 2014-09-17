@@ -11,30 +11,13 @@
         </tr>
         <tr>
             <td class="table-login-cell">
-                Repeat e-mail
-            </td>
-            <td class="table-login-cell">
-                <input type="email" id="confirmEmail" value="${register.confirmEmail}" required="true"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="table-login-cell">
                 Password
             </td>
             <td class="table-login-cell">
                 <input type="password" id="password" value="${register.password}"
                        required="true" name='password' />
             </td>
-        </tr>
-        <tr>
-            <td class="table-login-cell">
-                Repeat password
-            </td>
-            <td class="table-login-cell">
-                <input type="password" id="confirmPassword" value="${register.confirmPassword}"
-                       required="true" />
-            </td>
-        </tr>
+        </tr>   
         <tr>
             <td class="table-login-cell" colspan="2">
                 <input type="submit" value="Register" name="register" />

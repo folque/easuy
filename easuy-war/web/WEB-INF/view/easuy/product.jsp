@@ -5,6 +5,7 @@
         <form method="POST"> 
             <tr>
                 <td>${prod.name}<input type="hidden" name="prodId" value="${prod.id}"/></td>
+                <td>${prod.price}</td>
                 <td><input type="submit" value="Buy" /></td>
             </tr>
         </form>

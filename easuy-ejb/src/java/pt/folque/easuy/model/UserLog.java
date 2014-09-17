@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pt.folque.easuy.model;
 
 import java.io.Serializable;
@@ -26,7 +20,7 @@ import pt.folque.easuy.enums.UserLogType;
 
 /**
  *
- * @author Diogo
+ * @author Diogo Teixeira
  */
 @Entity
 @Table(name = "user_log")
@@ -36,7 +30,9 @@ import pt.folque.easuy.enums.UserLogType;
     @NamedQuery(name = "UserLog.findByDate", query = "SELECT u FROM UserLog u WHERE u.date = :date"),
     @NamedQuery(name = "UserLog.findByType", query = "SELECT u FROM UserLog u WHERE u.type = :type")})
 public class UserLog implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

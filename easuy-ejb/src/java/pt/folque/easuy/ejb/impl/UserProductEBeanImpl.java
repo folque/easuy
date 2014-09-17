@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pt.folque.easuy.ejb.impl;
 
 import java.util.Date;
 import java.util.List;
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.inject.Inject;
@@ -22,10 +17,11 @@ import pt.folque.easuy.enums.UserLogType;
 import pt.folque.easuy.model.Product;
 import pt.folque.easuy.model.User;
 import pt.folque.easuy.model.UserProduct;
+import pt.folque.easuy.templates.MailTemplate;
 
 /**
  *
- * @author Diogo
+ * @author Diogo Teixeira
  */
 @Stateless
 @LocalBean
@@ -55,15 +51,11 @@ public class UserProductEBeanImpl implements UserProductEBean {
         userProduct.setDate(new Date());
         userProduct.setPurchased(false);
         userLogEBean.setEvent(UserLogType.order, user);
-       /* try {
-         Thread.sleep(3000);
-        }catch(InterruptedException e){
-            Thread.currentThread().interrupt();
-        }*/
-       // mailEBean.sendMsg(user.getEmail(), "Your order info", MailTemplate.order(product));
+        mailEBean.sendMsg(user.getEmail(), "Your order info", MailTemplate.order(product));
         userProductOrm.persist(userProduct);
     }
     
+    @Asynchronous
     @Override
     public void buy(Long userId){
         List<UserProduct> userProducts = userProductOrm.findByUserAndPurchased(userId, Boolean.FALSE);

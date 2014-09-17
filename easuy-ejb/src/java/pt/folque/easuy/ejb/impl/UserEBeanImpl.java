@@ -15,7 +15,7 @@ import pt.folque.easuy.templates.MailTemplate;
 
 /**
  *
- * @author Diogo
+ * @author Diogo Teixeira
  */
 @Stateless
 @LocalBean

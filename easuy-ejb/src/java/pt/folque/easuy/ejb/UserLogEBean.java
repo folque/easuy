@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pt.folque.easuy.ejb;
 
 import java.util.List;
@@ -14,10 +8,11 @@ import pt.folque.easuy.model.UserLog;
 
 /**
  *
- * @author Diogo
+ * @author Diogo Teixeira
  */
 public interface UserLogEBean {
     
+    // Creates an event of given type for a given user
     @Transactional
     public void setEvent(UserLogType event, User user);
         

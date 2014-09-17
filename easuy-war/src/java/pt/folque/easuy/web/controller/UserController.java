@@ -1,9 +1,3 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
-
 package pt.folque.easuy.web.controller;
 
 import java.io.IOException;
@@ -17,7 +11,7 @@ import pt.folque.easuy.ejb.UserEBean;
 
 /**
  *
- * @author Diogo
+ * @author Diogo Teixeira
  */
 @WebServlet(name = "ControllerServlet", 
         urlPatterns = {"/home", 
@@ -30,9 +24,7 @@ public class UserController extends HttpServlet {
     @Inject
     private UserEBean userBean;
     
-    private static final String CATEGORY = "/easuy/category";
     private static final String REGISTER = "/login/register";
-    private static final String LOGIN = "/login/login";
     private static final String LOGOUT = "/logout";
     private static final String REGISTERSUCCESS = "/login/success";
     private static final String INDEX = "/home";
@@ -40,7 +32,6 @@ public class UserController extends HttpServlet {
     
     
     
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -88,7 +79,9 @@ public class UserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String userPath = request.getServletPath();
+        
         if(userPath.equals(REGISTER)){
             userPath = "/login/register";
             String email = request.getParameter("email");
@@ -104,6 +97,7 @@ public class UserController extends HttpServlet {
             } catch(Exception e){
                 e.printStackTrace();
             }            
+        
         }
         if(userPath.equals(REGISTERSUCCESS)){
             userPath = "/login/success";
@@ -117,15 +111,4 @@ public class UserController extends HttpServlet {
             e.printStackTrace();
         }
     }
-    
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-    
 }

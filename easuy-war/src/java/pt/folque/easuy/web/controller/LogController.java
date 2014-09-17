@@ -1,9 +1,3 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
-
 package pt.folque.easuy.web.controller;
 
 import java.io.IOException;
@@ -20,7 +14,7 @@ import pt.folque.easuy.model.User;
 
 /**
  *
- * @author Diogo
+ * @author Diogo Teixeira
  */
 @WebServlet(name = "LogController", urlPatterns = {"/easuy/log", "/easuy/history"})
 public class LogController extends HttpServlet {
@@ -95,17 +89,4 @@ public class LogController extends HttpServlet {
             ex.printStackTrace();
         }
     }
-    
-    
-    
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-    
 }
