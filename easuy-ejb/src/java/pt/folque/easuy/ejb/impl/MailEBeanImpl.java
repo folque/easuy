@@ -42,7 +42,7 @@ public class MailEBeanImpl implements MailEBean{
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("easuy.biz@gmail.com"));
-            message.setRecipient(Message.RecipientType.TO, InternetAddress.parse("folque@gmail.com")[0]);
+            message.setRecipient(Message.RecipientType.TO, InternetAddress.parse(address)[0]);
             message.setSubject(title);
             message.setText(content);
             Transport.send(message);
